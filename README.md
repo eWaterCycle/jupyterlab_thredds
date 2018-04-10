@@ -1,6 +1,6 @@
 # jupyterlab_thredds
 
-JupyterLab viewer for Thredds catalog
+JupyterLab file browser for [THREDDS catalog](https://www.unidata.ucar.edu/software/thredds/v4.6/tds/catalog/index.html)
 
 
 ## Prerequisites
