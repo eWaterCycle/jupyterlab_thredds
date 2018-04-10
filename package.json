@@ -31,8 +31,11 @@
   "dependencies": {
     "@jupyterlab/application": "^0.15.4",
     "@jupyterlab/apputils": "^0.15.5",
+    "@jupyterlab/docmanager": "^0.15.5",
     "@jupyterlab/docregistry": "^0.15.5",
     "@jupyterlab/notebook": "^0.15.7",
+    "@jupyterlab/filebrowser": "^0.15.4",
+    "@jupyterlab/services": "^1.1.4",
     "@phosphor/disposable": "^1.1.2"
   },
   "devDependencies": {

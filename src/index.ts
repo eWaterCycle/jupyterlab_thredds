@@ -3,7 +3,7 @@ import {
 } from '@phosphor/disposable';
 
 import {
-  JupyterLab, JupyterLabPlugin
+  ILayoutRestorer, JupyterLab, JupyterLabPlugin
 } from '@jupyterlab/application';
 import {
   ToolbarButton
@@ -14,11 +14,18 @@ import {
 } from '@jupyterlab/docregistry';
 
 import {
+  IFileBrowserFactory
+} from '@jupyterlab/filebrowser';
+
+import {
   NotebookPanel, INotebookModel
 } from '@jupyterlab/notebook';
 
 import '../style/index.css';
 import { CodeCellModel } from '@jupyterlab/cells';
+import { IDocumentManager } from '@jupyterlab/docmanager';
+import { ThreddsDrive } from './contents';
+import { ThreddsFileBrowser } from './browser';
 
 
 /**
@@ -26,7 +33,8 @@ import { CodeCellModel } from '@jupyterlab/cells';
  */
 const plugin: JupyterLabPlugin<void> = {
   activate,
-  id: 'my-extension-name:buttonPlugin',
+  requires: [IDocumentManager, IFileBrowserFactory, ILayoutRestorer],
+  id: 'jupyterlab-thredds',
   autoStart: true
 };
 
@@ -68,11 +76,30 @@ class ButtonExtension implements DocumentRegistry.IWidgetExtension<NotebookPanel
   }
 }
 
+const NAMESPACE = 'thredds-filebrowser';
+
 /**
  * Activate the extension.
  */
-function activate(app: JupyterLab) {
+function activate(app: JupyterLab, manager: IDocumentManager, factory: IFileBrowserFactory, restorer: ILayoutRestorer) {
   app.docRegistry.addWidgetExtension('Notebook', new ButtonExtension());
+
+  const drive = new ThreddsDrive();
+  manager.services.contents.addDrive(drive);
+
+  const { commands } = app;
+  const browser = factory.createFileBrowser(NAMESPACE, {
+    commands,
+    driveName: drive.name
+  });
+
+  const threddsBrowser = new ThreddsFileBrowser(browser, drive);
+
+  threddsBrowser.title.label = 'THREDDS';
+  threddsBrowser.id = 'thredds-file-browser';
+
+  restorer.add(threddsBrowser, NAMESPACE);
+  app.shell.addToLeftArea(threddsBrowser, { rank: 103 });
 };
 
 
