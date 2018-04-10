@@ -30,3 +30,7 @@ npm run build
 jupyter lab build
 ```
 
+## Usage
+
+1. In Jupyter lab open a notebook
+2. Press the '>>|' (Add cell) button to add a cell to notebook which loads a iris cube from a hardcoded opendap url.
