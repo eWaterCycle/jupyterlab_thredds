@@ -1,5 +1,5 @@
 import {
-    ISignal
+    Signal
 } from '@phosphor/signaling';
 
 
@@ -8,38 +8,106 @@ import {
 } from '@jupyterlab/services';
 
 export class ThreddsDrive implements Contents.IDrive {
-    serverSettings: ServerConnection.ISettings;
-    name: 'Thredds';
+    _baseUrl: string = '';
+    serverSettings: ServerConnection.ISettings = ServerConnection.makeSettings();
+    fileChanged = new Signal<this, Contents.IChangedArgs>(this);
 
-    fileChanged: ISignal<Contents.IDrive, Contents.IChangedArgs>;
+    set baseUrl(newValue: string) {
+        this._baseUrl = newValue;
+    }
 
     get(localPath: string, options?: Contents.IFetchOptions): Promise<Contents.IModel> {
-        // TODO use Xmlhttprequest to fetch http://172.17.0.2:8080/thredds/catalog/ewc/2017-11-21/work01/output/netcdf/catalog.xml
-        // and convert to IModel
-        const content = [{
-            name: 'totalEvaporation_dailyTot_output.nc',
-            path: 'ewc/2017-11-21/work01/output/netcdf/totalEvaporation_dailyTot_output.nc',
-            format: 'json',
-            type: 'directory',
-            created: '',
-            writable: false,
-            last_modified: '2018-03-26T11:30:18Z',
-            mimetype: 'application/x-netcdf',
-            content: null
-        } as Contents.IModel];
-        const model = {
-            name: '',
-            path: 'http://172.17.0.2:8080/thredds/dodsC/ewc/2017-11-21/work01/output/netcdf/',
-            format: 'json',
-            type: 'directory',
-            created: '',
-            last_modified: '',
-            writable: false,
-            mimetype: '',
-            content
-        } as Contents.IModel
-        return Promise.resolve(model);
+        // no server and no path
+        if (localPath === '' && this._baseUrl === '') {
+            const model: Contents.IModel = {
+                type: 'directory',
+                path: '',
+                name: '',
+                format: 'json',
+                content: [],
+                created: '',
+                writable: false,
+                last_modified: '',
+                mimetype: '',
+            };
+            return Promise.resolve(model);
+        }
+
+        console.log([this._baseUrl, localPath]);
+        // const url = 'http://localhost:8080/thredds/ewc/2017-11-21/work01/output/netcdf/catalog.xml';
+        const url = this._baseUrl + localPath + 'catalog.xml';
+        return fetch(url)
+            .then(r => {
+                return r.text();
+            })
+            .then(txt => {
+                const parser = new DOMParser();
+                return parser.parseFromString(txt, "text/xml");
+            })
+            .then(r => {
+                const content: Contents.IModel[] = [];
+
+                // dirs
+                const catalogRefs = r.getElementsByTagName('catalogRef');
+                for (let index = 0; index < catalogRefs.length; index++) {
+                    const catalogRef = catalogRefs[index];
+                    const name = catalogRef.attributes.getNamedItem('xlink:title').value;
+                    const href = catalogRef.attributes.getNamedItem('xlink:href').value;
+                    content.push({
+                        name: name,
+                        path: href.replace('catalog.xml', ''),
+                        type: 'directory',
+                        format: 'json',
+                        created: '',
+                        last_modified: '',
+                        writable: false,
+                        mimetype: '',
+                        content: null
+                    });
+                }
+
+                const root = r.querySelector('catalog dataset');
+                if (root) {
+                    // files
+                    const datasets = root.getElementsByTagName('dataset');
+                    for (let index = 0; index < datasets.length; index++) {
+                        const dataset = datasets[index];
+                        const name = dataset.attributes.getNamedItem('name').value;
+                        const id = dataset.attributes.getNamedItem('ID').value;
+                        const modified = dataset.querySelector('date[type=modified]').innerHTML
+                        content.push({
+                            name: name,
+                            path: id,
+                            type: 'file',
+                            format: 'base64',
+                            created: '',
+                            last_modified: modified,
+                            writable: false,
+                            mimetype: 'application/x-netcdf',
+                            content: null
+                        });
+                    }
+                }
+
+                const model: Contents.IModel = {
+                    name: '',
+                    path: localPath,
+                    format: 'json',
+                    type: 'directory',
+                    created: '',
+                    last_modified: '',
+                    writable: false,
+                    mimetype: '',
+                    content
+                };
+                return model;
+            });
     }
+
+    get name(): 'Thredds' {
+        return 'Thredds';
+    }
+
     getDownloadUrl(path: string): Promise<string> {
         // TODO convert catalog dataset id to absolute url
         return Promise.resolve(path);

@@ -13,6 +13,7 @@ export class ThreddsFileBrowser extends Widget {
     _browser: FileBrowser;
     constructor(browser: FileBrowser, drive: ThreddsDrive) {
         super();
+        this.addClass('jp-ThreddsBrowser');
         this.layout = new PanelLayout();
         (this.layout as PanelLayout).addWidget(browser);
         this._browser = browser;
@@ -30,7 +31,8 @@ export class ThreddsFileBrowser extends Widget {
             return;
         }
         this._changeGuard = true;
-        this._browser.model.cd(`/${args.newValue as string}`).then(() => {
+        this._drive.baseUrl = args.newValue as string;
+        this._browser.model.cd('/').then(() => {
             this._changeGuard = false;
             this._updateErrorPanel();
             // Once we have the new listing, maybe give the file listing
