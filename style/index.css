@@ -1,0 +1,23 @@
+.jp-ThreddsBrowser .jp-Toolbar-button.jp-RefreshIcon {
+  display: none;
+}
+  
+.jp-ThreddsBrowser .jp-Toolbar-button.jp-AddIcon {
+  display: none;
+}
+
+.jp-ThreddsBrowser .jp-Toolbar-button.jp-newFolderIcon {
+  display: none;
+}
+
+.jp-ThreddsBrowser .jp-Toolbar-button.jp-id-upload {
+  display: none;
+}
+
+.jp-ThreddsBrowser .jp-DirListing-headerItem.jp-id-modified {
+  display: none;
+}
+
+.jp-ThreddsBrowser .jp-DirListing-itemModified {
+  display: none;
+}
