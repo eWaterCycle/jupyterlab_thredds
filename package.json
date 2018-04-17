@@ -29,18 +29,18 @@
     "watch": "tsc -w"
   },
   "dependencies": {
-    "@jupyterlab/application": "^0.15.4",
-    "@jupyterlab/apputils": "^0.15.5",
-    "@jupyterlab/docmanager": "^0.15.5",
-    "@jupyterlab/docregistry": "^0.15.5",
-    "@jupyterlab/notebook": "^0.15.7",
-    "@jupyterlab/filebrowser": "^0.15.4",
-    "@jupyterlab/services": "^1.1.4",
+    "@jupyterlab/application": "^0.16.0",
+    "@jupyterlab/apputils": "^0.16.0",
+    "@jupyterlab/docmanager": "^0.16.0",
+    "@jupyterlab/docregistry": "^0.16.0",
+    "@jupyterlab/filebrowser": "^0.16.0",
+    "@jupyterlab/notebook": "^0.16.0",
+    "@jupyterlab/services": "^2.0.0",
     "@phosphor/disposable": "^1.1.2"
   },
   "devDependencies": {
-    "rimraf": "^2.6.1",
-    "typescript": "~2.6.0"
+    "rimraf": "^2.6.2",
+    "typescript": "~2.6.2"
   },
   "jupyterlab": {
     "extension": true

@@ -30,6 +30,14 @@ npm run build
 jupyter lab build
 ```
 
+Watch mode
+```bash
+# shell 1
+npm run watch
+# shell 2
+jupyter lab --ip=0.0.0.0 --no-browser --watch
+```
+
 ## Usage
 
 1. In Jupyter lab open a notebook
