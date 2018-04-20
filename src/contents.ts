@@ -1,11 +1,13 @@
+import * as urlparse from 'url-parse';
+
 import {
     Signal
 } from '@phosphor/signaling';
 
-
 import {
-    Contents, ServerConnection,
+    Contents, ServerConnection
 } from '@jupyterlab/services';
+import { parseDatasets, parseCatalogs } from './catalog';
 
 export class ThreddsDrive implements Contents.IDrive {
     _baseUrl: string = '';
@@ -35,7 +37,9 @@ export class ThreddsDrive implements Contents.IDrive {
 
         console.log([this._baseUrl, localPath]);
         // const url = 'http://localhost:8080/thredds/ewc/2017-11-21/work01/output/netcdf/catalog.xml';
-        const url = this._baseUrl + localPath + 'catalog.xml';
+        const urlp = urlparse(this._baseUrl);
+        urlp.set('pathname', localPath);
+        const url = urlp.href;
         return fetch(url)
             .then(r => {
                 return r.text();
@@ -48,46 +52,10 @@ export class ThreddsDrive implements Contents.IDrive {
                 const content: Contents.IModel[] = [];
 
                 // dirs
-                const catalogRefs = r.getElementsByTagName('catalogRef');
-                for (let index = 0; index < catalogRefs.length; index++) {
-                    const catalogRef = catalogRefs[index];
-                    const name = catalogRef.attributes.getNamedItem('xlink:title').value;
-                    const href = catalogRef.attributes.getNamedItem('xlink:href').value;
-                    content.push({
-                        name: name,
-                        path: href.replace('catalog.xml', ''),
-                        type: 'directory',
-                        format: 'json',
-                        created: '',
-                        last_modified: '',
-                        writable: false,
-                        mimetype: '',
-                        content: null
-                    });
-                }
+                content.concat(parseCatalogs(r, urlp.pathname));
 
-                const root = r.querySelector('catalog dataset');
-                if (root) {
-                    // files
-                    const datasets = root.getElementsByTagName('dataset');
-                    for (let index = 0; index < datasets.length; index++) {
-                        const dataset = datasets[index];
-                        const name = dataset.attributes.getNamedItem('name').value;
-                        const id = dataset.attributes.getNamedItem('ID').value;
-                        const modified = dataset.querySelector('date[type=modified]').innerHTML
-                        content.push({
-                            name: name,
-                            path: id,
-                            type: 'file',
-                            format: 'base64',
-                            created: '',
-                            last_modified: modified,
-                            writable: false,
-                            mimetype: 'application/x-netcdf',
-                            content: null
-                        });
-                    }
-                }
+                // files
+                content.concat(parseDatasets(r));
 
                 const model: Contents.IModel = {
                     name: '',

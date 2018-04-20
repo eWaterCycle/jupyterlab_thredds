@@ -20,8 +20,8 @@ export class ThreddsFileBrowser extends Widget {
         this._drive = drive;
 
         // Create an editiable name for Thredds server base url
-        this.baseUrl = new ThreddsEditableBaseUrl('', '<Edit thredds server base url>');
-        this.baseUrl.node.title = 'Click to edit thredds server base url';
+        this.baseUrl = new ThreddsEditableBaseUrl('', '<Edit thredds catalog url>');
+        this.baseUrl.node.title = 'Click to edit thredds catalog url';
         this._browser.toolbar.addItem('base', this.baseUrl);
         this.baseUrl.name.changed.connect(this._onBaseUrlChanged, this);
     }
