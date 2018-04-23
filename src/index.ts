@@ -24,7 +24,6 @@ import {
 import '../style/index.css';
 import { CodeCellModel } from '@jupyterlab/cells';
 import { IDocumentManager } from '@jupyterlab/docmanager';
-import { ThreddsDrive } from './contents';
 import { ThreddsFileBrowser } from './browser';
 
 
@@ -84,19 +83,7 @@ const NAMESPACE = 'thredds-filebrowser';
 function activate(app: JupyterLab, manager: IDocumentManager, factory: IFileBrowserFactory, restorer: ILayoutRestorer) {
   app.docRegistry.addWidgetExtension('Notebook', new ButtonExtension());
 
-  const drive = new ThreddsDrive();
-  manager.services.contents.addDrive(drive);
-
-  const { commands } = app;
-  const browser = factory.createFileBrowser(NAMESPACE, {
-    commands,
-    driveName: drive.name
-  });
-
-  const threddsBrowser = new ThreddsFileBrowser(browser, drive);
-
-  threddsBrowser.title.label = 'THREDDS';
-  threddsBrowser.id = 'thredds-file-browser';
+  const threddsBrowser = new ThreddsFileBrowser();
 
   restorer.add(threddsBrowser, NAMESPACE);
   app.shell.addToLeftArea(threddsBrowser, { rank: 103 });

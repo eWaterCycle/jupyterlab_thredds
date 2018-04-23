@@ -21,6 +21,7 @@ For a development install (requires npm version 4 or later), do the following in
 npm install
 npm run build
 jupyter labextension link .
+python setup.py develop
 ```
 
 To rebuild the package and the JupyterLab app:

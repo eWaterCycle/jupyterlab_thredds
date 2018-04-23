@@ -1,29 +1,32 @@
-import {
-    PanelLayout, Widget
-} from '@phosphor/widgets';
-import { FileBrowser } from '@jupyterlab/filebrowser';
-import { ThreddsDrive } from './contents';
 import { ObservableValue } from '@jupyterlab/observables';
+import { Toolbar } from '@jupyterlab/apputils';
+import { Widget, PanelLayout } from '@phosphor/widgets';
 
 export class ThreddsFileBrowser extends Widget {
+    listing: CatalogListing;
+    toolbar: Toolbar<Widget>;
     _errorPanel: ThreddsErrorPanel | null;
     _changeGuard: boolean = false;
     baseUrl: ThreddsEditableBaseUrl;
-    _drive: ThreddsDrive;
-    _browser: FileBrowser;
-    constructor(browser: FileBrowser, drive: ThreddsDrive) {
+    layout: PanelLayout;
+
+    constructor() {
         super();
+        this.title.label = 'THREDDS';
+        this.id = 'thredds-file-browser';
         this.addClass('jp-ThreddsBrowser');
         this.layout = new PanelLayout();
-        (this.layout as PanelLayout).addWidget(browser);
-        this._browser = browser;
-        this._drive = drive;
 
         // Create an editiable name for Thredds server base url
         this.baseUrl = new ThreddsEditableBaseUrl('', '<Edit thredds catalog url>');
         this.baseUrl.node.title = 'Click to edit thredds catalog url';
-        this._browser.toolbar.addItem('base', this.baseUrl);
         this.baseUrl.name.changed.connect(this._onBaseUrlChanged, this);
+        this.layout.addWidget(this.baseUrl);
+
+        this.listing = new CatalogListing();
+        this.layout.addWidget(this.listing);
+
+
     }
 
     private _onBaseUrlChanged(sender: ObservableValue, args: ObservableValue.IChangedArgs) {
@@ -31,31 +34,35 @@ export class ThreddsFileBrowser extends Widget {
             return;
         }
         this._changeGuard = true;
-        this._drive.baseUrl = args.newValue as string;
-        this._browser.model.cd('/').then(() => {
-            this._changeGuard = false;
-            this._updateErrorPanel();
-            // Once we have the new listing, maybe give the file listing
-            // focus. Once the input element is removed, the active element
-            // appears to revert to document.body. If the user has subsequently
-            // focused another element, don't focus the browser listing.
-            if (document.activeElement === document.body) {
-                const listing = (this._browser.layout as PanelLayout).widgets[2];
-                listing.node.focus();
-            }
-        });
+    }
+}
+
+export class CatalogListing extends Widget {
+    container: HTMLElement;
+    constructor() {
+        super();
+        this.buildContainer();
     }
 
-    private _updateErrorPanel(): void {
-        // If we currently have an error panel, remove it.
-        if (this._errorPanel) {
-            const listing = (this._browser.layout as PanelLayout).widgets[2];
-            listing.node.removeChild(this._errorPanel.node);
-            this._errorPanel.dispose();
-            this._errorPanel = null;
-        }
+    buildContainer() {
+        this.container = document.createElement('ul');
+        this.container.className = 'jp-CatalogListing';
+        this.node.appendChild(this.container);
+    }
 
-        // TODO report when baseUrl promise fails
+    clearContainer() {
+        this.node.removeChild(this.container);
+    }
+
+    onUpdateRequest() {
+        this.clearContainer();
+        this.buildContainer();
+
+
+        const item = document.createElement('li');
+        item.className = 'jp-CatalogItem';
+        item.textContent = 'bla';
+        this.container.appendChild(item);
     }
 }
 
@@ -68,6 +75,7 @@ export class ThreddsEditableBaseUrl extends Widget {
     constructor(initialName: string = '', placeholder?: string) {
         super();
         this._nameNode = document.createElement('div');
+        this._nameNode.className = "jp-editableUrl";
         this._editNode = document.createElement('input');
 
         this._placeholder = placeholder || '<Edit thredds server base url>';
