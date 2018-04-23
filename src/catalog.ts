@@ -10,19 +10,23 @@ export function parseDatasets(doc: Document): Contents.IModel[] {
         const dataset = datasets[index];
         const name = dataset.attributes.getNamedItem('name').value;
         const id = dataset.attributes.getNamedItem('ID').value;
-        const modified = dataset.querySelector('date[type=modified]').innerHTML;
-        const model: Contents.IModel = {
+        const datetag = dataset.querySelector('date[type=modified]');
+        let model  = {
             name: name,
             path: id,
             type: 'file',
             format: 'base64',
+            last_modified: '',
             created: '',
-            last_modified: modified,
             writable: false,
             mimetype: 'application/x-netcdf',
-            content: null
+            content: null as any
+        };
+        if (datetag) {
+            const modified = datetag.innerHTML;
+            model.last_modified =  modified;
         }
-        content.push(model);
+        content.push(model as Contents.IModel);
     }
     return content;
 }

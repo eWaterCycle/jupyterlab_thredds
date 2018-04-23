@@ -38,7 +38,9 @@ export class ThreddsDrive implements Contents.IDrive {
         console.log([this._baseUrl, localPath]);
         // const url = 'http://localhost:8080/thredds/ewc/2017-11-21/work01/output/netcdf/catalog.xml';
         const urlp = urlparse(this._baseUrl);
-        urlp.set('pathname', localPath);
+        if (localPath !== '') {
+            urlp.set('pathname', localPath);
+        }
         const url = urlp.href;
         return fetch(url)
             .then(r => {
@@ -49,13 +51,8 @@ export class ThreddsDrive implements Contents.IDrive {
                 return parser.parseFromString(txt, "text/xml");
             })
             .then(r => {
-                const content: Contents.IModel[] = [];
-
-                // dirs
-                content.concat(parseCatalogs(r, urlp.pathname));
-
-                // files
-                content.concat(parseDatasets(r));
+                // list catalogs and datasets
+                const content = parseCatalogs(r, urlp.pathname).concat(parseDatasets(r));
 
                 const model: Contents.IModel = {
                     name: '',
@@ -68,6 +65,7 @@ export class ThreddsDrive implements Contents.IDrive {
                     mimetype: '',
                     content
                 };
+                console.log([localPath, model]);
                 return model;
             });
     }
