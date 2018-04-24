@@ -3,7 +3,7 @@ import {
 } from '@phosphor/disposable';
 
 import {
-  JupyterLab, JupyterLabPlugin
+  ILayoutRestorer, JupyterLab, JupyterLabPlugin
 } from '@jupyterlab/application';
 import {
   ToolbarButton
@@ -14,11 +14,12 @@ import {
 } from '@jupyterlab/docregistry';
 
 import {
-  NotebookPanel, INotebookModel
+  NotebookPanel, INotebookModel, INotebookTracker
 } from '@jupyterlab/notebook';
 
 import '../style/index.css';
 import { CodeCellModel } from '@jupyterlab/cells';
+import { ThreddsFileBrowser } from './browser';
 
 
 /**
@@ -26,7 +27,8 @@ import { CodeCellModel } from '@jupyterlab/cells';
  */
 const plugin: JupyterLabPlugin<void> = {
   activate,
-  id: 'my-extension-name:buttonPlugin',
+  requires: [INotebookTracker, ILayoutRestorer],
+  id: 'jupyterlab-thredds',
   autoStart: true
 };
 
@@ -35,7 +37,7 @@ const plugin: JupyterLabPlugin<void> = {
  * A notebook widget extension that adds a button to the toolbar.
  */
 export
-class ButtonExtension implements DocumentRegistry.IWidgetExtension<NotebookPanel, INotebookModel> {
+  class ButtonExtension implements DocumentRegistry.IWidgetExtension<NotebookPanel, INotebookModel> {
   /**
    * Create a new extension object.
    */
@@ -68,11 +70,18 @@ class ButtonExtension implements DocumentRegistry.IWidgetExtension<NotebookPanel
   }
 }
 
+const NAMESPACE = 'thredds-filebrowser';
+
 /**
  * Activate the extension.
  */
-function activate(app: JupyterLab) {
+function activate(app: JupyterLab, tracker: INotebookTracker, restorer: ILayoutRestorer) {
   app.docRegistry.addWidgetExtension('Notebook', new ButtonExtension());
+
+  const threddsBrowser = new ThreddsFileBrowser(tracker);
+
+  restorer.add(threddsBrowser, NAMESPACE);
+  app.shell.addToLeftArea(threddsBrowser, { rank: 103 });
 };
 
 
