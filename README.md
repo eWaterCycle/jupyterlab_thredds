@@ -22,6 +22,7 @@ npm install
 npm run build
 jupyter labextension link .
 python setup.py develop
+jupyter serverextension enable --sys-prefix jupyterlab_thredds
 ```
 
 To rebuild the package and the JupyterLab app:

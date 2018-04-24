@@ -1,13 +1,10 @@
-import re, json
-
-import tornado.gen as gen
-from tornado.httputil import url_concat
-from tornado.httpclient import AsyncHTTPClient, HTTPRequest, HTTPError
+import logging
+import json
 
 from traitlets import Integer
 from traitlets.config import Configurable
 
-from notebook.utils import url_path_join, url_escape
+from notebook.utils import url_path_join
 from notebook.base.handlers import APIHandler
 
 from thredds_crawler.crawl import Crawl
@@ -44,14 +41,17 @@ class ThreddsHandler(APIHandler):
     def data_received(self, chunk):
         pass
 
-    @gen.coroutine
-    def get(self, catalog_url=''):
+    def get(self):
+        catalog_url = self.get_argument('catalog_url')
+        if not catalog_url:
+            self.set_status(400)
+            self.finish(json.dumps({'status': 400,
+                                    'title': 'Require catalog_url query parameter'
+                                    }))
         c = ThreddsConfig(config=self.config)
         crawl = Crawl(catalog_url, workers=c.workers)
-
         datasets = [flatten_dataset(d) for d in crawl.datasets]
-        self.finish(datasets)
-
+        self.finish(json.dumps(datasets))
 
 
 def _jupyter_server_extension_paths():
@@ -69,5 +69,5 @@ def load_jupyter_server_extension(nb_server_app):
     web_app = nb_server_app.web_app
     base_url = web_app.settings['base_url']
     endpoint = url_path_join(base_url, 'thredds')
-    handlers = [(endpoint + "(.*)", ThreddsHandler)]
+    handlers = [(endpoint, ThreddsHandler)]
     web_app.add_handlers('.*$', handlers)
