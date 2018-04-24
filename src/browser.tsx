@@ -51,7 +51,7 @@ export class ThreddsFileBrowser extends Widget {
 
     leafletCode(dataset: IDataset) {
         const wms_url = this.urlOfService(dataset, 'WMS');
-        return 'wms = ipyleaflet.WMSLayer(url="' + wms_url + '")';
+        return 'wms = ipyleaflet.WMSLayer(url="' + wms_url + '", layers="<Change to layer name(s) to render>")';
     }
 
     currentNotebook(): INotebookModel {
@@ -88,7 +88,7 @@ export class ThreddsCatalogBrowser extends React.Component<IProps, IState> {
         super(props);
         this._serverSettings = ServerConnection.makeSettings();
         this.state = {
-            catalog_url: 'http://localhost:8080/thredds/ewc/2017-11-21/work01/output/netcdf/catalog.xml',
+            catalog_url: 'http://localhost:8080/thredds/catalog.xml',
             openas: 'iris',
             datasets: []
         };

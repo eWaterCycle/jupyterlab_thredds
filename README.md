@@ -6,6 +6,8 @@ JupyterLab viewer for Thredds catalog
 ## Prerequisites
 
 * JupyterLab
+* ipywidgets, `jupyter labextension install @jupyter-widgets/jupyterlab-manager`
+* ipyleaflet, `jupyter labextension install jupyter-leaflet`
 
 ## Installation
 
