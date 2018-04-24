@@ -1,7 +1,10 @@
 # jupyterlab_thredds
 
-JupyterLab viewer for Thredds catalog
+JupyterLab browser for a  [THREDDS catalog](https://www.unidata.ucar.edu/software/thredds/v4.6/tds/catalog/index.html).
 
+Can inject iris/xarray/leaflet code cells into a Python notebook of a selected dataset to further proces/visualize the dataset.
+
+![screenshot](jupyterlab-thredds.png "Screenshot")
 
 ## Prerequisites
 
@@ -11,7 +14,10 @@ JupyterLab viewer for Thredds catalog
 
 ## Installation
 
+Not released yet, must use development instructions to install.
+
 ```bash
+pip install jupyterlab_thredds
 jupyter labextension install jupyterlab_thredds
 ```
 
@@ -45,4 +51,7 @@ jupyter lab --ip=0.0.0.0 --no-browser --watch
 ## Usage
 
 1. In Jupyter lab open a notebook
-2. Press the '>>|' (Add cell) button to add a cell to notebook which loads a iris cube from a hardcoded opendap url.
+2. Open the `THREDDS` tab on the left side.
+3. File the catalog url
+4. Press search button
+5. Press a dataset to insert code into a notebook
