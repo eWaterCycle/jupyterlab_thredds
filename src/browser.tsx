@@ -7,8 +7,10 @@ import {
 import { URLExt } from '@jupyterlab/coreutils';
 import { ThreddsDataset, IDataset } from './listing';
 import { INotebookTracker, INotebookModel } from '@jupyterlab/notebook';
-import { CodeCellModel } from '@jupyterlab/cells';
+import { CodeCellModel, ICellModel } from '@jupyterlab/cells';
 import { showErrorMessage } from '@jupyterlab/apputils';
+import { IObservableUndoableList } from '@jupyterlab/observables';
+import { find } from '@phosphor/algorithm';
 
 
 export class ThreddsFileBrowser extends Widget {
@@ -32,7 +34,7 @@ export class ThreddsFileBrowser extends Widget {
             cell: {
                 cell_type: 'code',
                 source: [code],
-                metadata: { trusted: false, collapsed: false }
+                metadata: { trusted: false, collapsed: false, tags: ['injected by THREDDS browser'] }
             }
         })
     }
@@ -60,6 +62,11 @@ export class ThreddsFileBrowser extends Widget {
         return this.tracker.currentWidget.model;
     }
 
+    notbookHasImport(cells: IObservableUndoableList<ICellModel>, importCode: string) {
+        const result = find(cells.iter(), (c) => c.type === 'code' && c.value.text.indexOf(importCode) !== -1);
+        return result !== undefined;
+    }
+
     onOpen = (dataset: IDataset, openas: string) => {
         if (openas === 'file') {
             window.open(this.urlOfService(dataset, 'HTTPServer'));
@@ -74,12 +81,25 @@ export class ThreddsFileBrowser extends Widget {
             showErrorMessage('Active notebook uses wrong kernel language. Only python is supported', {});
             return;
         }
-        let code;
+        if (nb.readOnly) {
+            showErrorMessage('Unable to inject cell into read-only notebook', {});
+            return;
+        }
+        let code = '';
         if (openas === 'iris') {
-            code = this.irisCode(dataset);
+            if (!this.notbookHasImport(nb.cells, 'import iris')) {
+                code += 'import iris\n';
+            }
+            code += this.irisCode(dataset);
         } else if (openas === 'xarray') {
+            if (!this.notbookHasImport(nb.cells, 'import xarray as xr')) {
+                code += 'import xarray as xr\n';
+            }
             code = this.xarrayCode(dataset);
         } else if (openas === 'leaflet') {
+            if (!this.notbookHasImport(nb.cells, 'import ipyleaflet')) {
+                code += 'import ipyleaflet\n';
+            }
             code = this.leafletCode(dataset);
         }
         const cell = this.codeCell(code);
