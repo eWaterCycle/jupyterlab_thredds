@@ -132,25 +132,36 @@ export class ThreddsCatalogBrowser extends React.Component<IProps, IState> {
         ));
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Catalog URL
-                        <input type="text" value={this.state.catalog_url} onChange={this.onCatalogUrlChange} />
-                    </label>
-                    <label>
-                        Open as
-                        <select value={this.state.openas} onChange={this.onOpenAsChange}>
-                            <option value="iris">Iris data cube</option>
-                            <option value="xarray">Xarray dataset</option>
-                            <option value="leaflet">Leaflet WMS layer</option>
-                            <option value="file">File</option>
-                        </select>
-                    </label>
-                    <input type="submit" value="Search" />
+                <form className="p-Widget" onSubmit={this.handleSubmit}>
+                    <div className="p-Widget">
+                        <label>Catalog URL</label>
+                        <div className="jp-TreddsBrowser-wrapper">
+                            <input className="jp-mod-styled jp-TreddsBrowser-input" type="text" value={this.state.catalog_url} onChange={this.onCatalogUrlChange} />
+                        </div>
+                    </div>
+                    <div className="p-Widget">
+                        <label>
+                            Open as
+                        </label>
+                        <div className="jp-select-wrapper">
+                            <select className="jp-mod-styled" value={this.state.openas} onChange={this.onOpenAsChange}>
+                                <option value="iris">Iris data cube</option>
+                                <option value="xarray">Xarray dataset</option>
+                                <option value="leaflet">Leaflet WMS layer</option>
+                                <option value="file">File</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="p-Widget jp-TreddsBrowser-wrapper">
+                        <input className="jp-mod-styled jp-TreddsBrowser-input" type="submit" value="Search" />
+                    </div>
                 </form>
-                <ul>
-                    {items}
-                </ul>
+                <hr/>
+                <div className="p-Widget jp-DirListing">
+                    <ul className="jp-DirListing-content">
+                        {items}
+                    </ul>
+                </div>
             </div>
         );
     }

@@ -8,10 +8,10 @@
   font-size: var(--jp-ui-font-size1);
 }
 
-.jp-editableUrl {
-  width: 100%; 
+.jp-TreddsBrowser-input {
+  width: 100%;
 }
 
-.jp-CatalogListing {
-  margin: 4px 12px;
+.jp-TreddsBrowser-wrapper {
+  padding: 2px;
 }
