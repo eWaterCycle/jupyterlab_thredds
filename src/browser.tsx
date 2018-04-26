@@ -8,6 +8,8 @@ import { URLExt } from '@jupyterlab/coreutils';
 import { ThreddsDataset, IDataset } from './listing';
 import { INotebookTracker, INotebookModel } from '@jupyterlab/notebook';
 import { CodeCellModel } from '@jupyterlab/cells';
+import { showErrorMessage } from '@jupyterlab/apputils';
+
 
 export class ThreddsFileBrowser extends Widget {
     tracker: INotebookTracker;
@@ -59,15 +61,33 @@ export class ThreddsFileBrowser extends Widget {
     }
 
     onOpen = (dataset: IDataset, openas: string) => {
-        if (openas === 'iris') {
-            this.currentNotebook().cells.push(this.codeCell(this.irisCode(dataset)));
-        } else if (openas === 'xarray') {
-            this.currentNotebook().cells.push(this.codeCell(this.xarrayCode(dataset)));
-        } else if (openas === 'leaflet') {
-            this.currentNotebook().cells.push(this.codeCell(this.leafletCode(dataset)));
-        } else if (openas === 'file') {
+        if (openas === 'file') {
             window.open(this.urlOfService(dataset, 'HTTPServer'));
+            return;
         }
+        if (!this.tracker.currentWidget) {
+            showErrorMessage('Unable to inject cell without an active notebook', {});
+            return;
+        }
+        const nb = this.currentNotebook();
+        if (nb.defaultKernelLanguage !== 'python') {
+            showErrorMessage('Active notebook uses wrong kernel language. Only python is supported', {});
+            return;
+        }
+        let code;
+        if (openas === 'iris') {
+            code = this.irisCode(dataset);
+        } else if (openas === 'xarray') {
+            code = this.xarrayCode(dataset);
+        } else if (openas === 'leaflet') {
+            code = this.leafletCode(dataset);
+        }
+        const cell = this.codeCell(code);
+        let cellIndex = nb.cells.length;
+        if (this.tracker.activeCell) {
+            cellIndex = this.tracker.currentWidget.notebook.activeCellIndex + 1;
+        }
+        nb.cells.insert(cellIndex, cell);
     }
 }
 
@@ -156,7 +176,7 @@ export class ThreddsCatalogBrowser extends React.Component<IProps, IState> {
                         <input className="jp-mod-styled jp-TreddsBrowser-input" type="submit" value="Search" />
                     </div>
                 </form>
-                <hr/>
+                <hr />
                 <div className="p-Widget jp-DirListing">
                     <ul className="jp-DirListing-content">
                         {items}
