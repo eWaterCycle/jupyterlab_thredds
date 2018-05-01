@@ -14,19 +14,31 @@ import { find } from '@phosphor/algorithm';
 
 
 export class ThreddsFileBrowser extends Widget {
+    catalog_url: string;
+    openas: string;
     tracker: INotebookTracker;
-    constructor(tracker: INotebookTracker) {
+    constructor(tracker: INotebookTracker, catalog_url: string, openas: string) {
         super();
         this.title.label = 'THREDDS';
         this.id = 'thredds-file-browser';
         this.addClass('jp-ThreddsBrowser');
         this.tracker = tracker;
+        this.catalog_url = catalog_url;
+        this.openas = openas;
         this.update();
     }
 
     onUpdateRequest() {
         ReactDOM.unmountComponentAtNode(this.node);
-        ReactDOM.render(<ThreddsCatalogBrowser open={this.onOpen} />, this.node);
+        ReactDOM.render((
+            <ThreddsCatalogBrowser 
+                open={this.onOpen} 
+                catalog_url={this.catalog_url}
+                openas={this.openas}
+                onCatalogUrlChange={this.setCatalogUrl}
+                onOpenAsChange={this.setOpenAs} 
+            />
+        ), this.node);
     }
 
     codeCell(code: string) {
@@ -75,8 +87,8 @@ export class ThreddsFileBrowser extends Widget {
         return result !== undefined;
     }
 
-    onOpen = (dataset: IDataset, openas: string) => {
-        if (openas === 'file') {
+    onOpen = (dataset: IDataset) => {
+        if (this.openas === 'file') {
             window.open(this.urlOfService(dataset, 'HTTPServer'));
             return;
         }
@@ -95,17 +107,17 @@ export class ThreddsFileBrowser extends Widget {
         }
         let code = '';
         const activeCellIndex = this.tracker.currentWidget.notebook.activeCellIndex;
-        if (openas === 'iris') {
+        if (this.openas === 'iris') {
             if (!this.notbookHasImport(nb.cells, 'import iris', activeCellIndex)) {
                 code += 'import iris\n';
             }
             code += this.irisCode(dataset);
-        } else if (openas === 'xarray') {
+        } else if (this.openas === 'xarray') {
             if (!this.notbookHasImport(nb.cells, 'import xarray as xr', activeCellIndex)) {
                 code += 'import xarray as xr\n';
             }
             code += this.xarrayCode(dataset);
-        } else if (openas === 'leaflet') {
+        } else if (this.openas === 'leaflet') {
             if (!this.notbookHasImport(nb.cells, 'import ipyleaflet', activeCellIndex)) {
                 code += 'import ipyleaflet\n';
             }
@@ -119,15 +131,27 @@ export class ThreddsFileBrowser extends Widget {
         nb.cells.insert(cellIndex, cell);
         NotebookActions.selectBelow(this.tracker.currentWidget.notebook);
     }
+
+    setCatalogUrl = (catalog_url: string) => {
+        this.catalog_url = catalog_url;
+        this.update();
+    }
+
+    setOpenAs = (openas: string) => {
+        this.openas = openas;
+        this.update();
+    }
 }
 
 export interface IProps {
-    open(dataset: IDataset, openas: string): void;
+    open(dataset: IDataset): void;
+    catalog_url: string;
+    openas: string;
+    onCatalogUrlChange(catalog_url: string): void;
+    onOpenAsChange(openas: string): void;
 }
 
 export interface IState {
-    catalog_url: string;
-    openas: string;
     datasets: IDataset[];
 }
 
@@ -138,19 +162,17 @@ export class ThreddsCatalogBrowser extends React.Component<IProps, IState> {
         super(props);
         this._serverSettings = ServerConnection.makeSettings();
         this.state = {
-            catalog_url: 'http://localhost:8080/thredds/catalog.xml',
-            openas: 'iris',
             datasets: []
         };
     }
 
     handleSubmit = (event: any) => {
-        this.fetchDatasets(this.state.catalog_url);
+        this.fetchDatasets(this.props.catalog_url);
         event.preventDefault();
     }
 
     fetchDatasets(catalog_url: string) {
-        const query = { catalog_url: this.state.catalog_url };
+        const query = { catalog_url: this.props.catalog_url };
         const url = URLExt.join(this._serverSettings.baseUrl, 'thredds', URLExt.objectToQueryString(query));
         ServerConnection.makeRequest(url, {}, this._serverSettings).then(response => {
             if (response.status !== 200) {
@@ -165,15 +187,15 @@ export class ThreddsCatalogBrowser extends React.Component<IProps, IState> {
     }
 
     onCatalogUrlChange = (event: any) => {
-        this.setState({ catalog_url: event.target.value });
+        this.props.onCatalogUrlChange(event.target.value);
     }
 
     onOpenAsChange = (event: any) => {
-        this.setState({ openas: event.target.value });
+        this.props.onOpenAsChange(event.target.value);
     }
 
     onDatasetClick = (dataset: IDataset) => {
-        this.props.open(dataset, this.state.openas);
+        this.props.open(dataset);
     }
 
     render() {
@@ -186,7 +208,7 @@ export class ThreddsCatalogBrowser extends React.Component<IProps, IState> {
                     <div className="p-Widget">
                         <label>Catalog URL</label>
                         <div className="jp-TreddsBrowser-wrapper">
-                            <input className="jp-mod-styled jp-TreddsBrowser-input" type="text" value={this.state.catalog_url} onChange={this.onCatalogUrlChange} />
+                            <input className="jp-mod-styled jp-TreddsBrowser-input" type="text" value={this.props.catalog_url} onChange={this.onCatalogUrlChange} />
                         </div>
                     </div>
                     <div className="p-Widget">
@@ -194,7 +216,7 @@ export class ThreddsCatalogBrowser extends React.Component<IProps, IState> {
                             Open as
                         </label>
                         <div className="jp-select-wrapper">
-                            <select className="jp-mod-styled" value={this.state.openas} onChange={this.onOpenAsChange}>
+                            <select className="jp-mod-styled" value={this.props.openas} onChange={this.onOpenAsChange}>
                                 <option value="iris">Iris data cube</option>
                                 <option value="xarray">Xarray dataset</option>
                                 <option value="leaflet">Leaflet WMS layer</option>
