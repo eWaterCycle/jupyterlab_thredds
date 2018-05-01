@@ -26,7 +26,7 @@ def flatten_dataset(dataset):
         'name': dataset.name,
         'catalog_url': dataset.catalog_url,
         'services': dataset.services,
-        'data_size': dataset.data_size,
+        'data_size': dataset.data_size
     }
 
 
@@ -50,7 +50,7 @@ class ThreddsHandler(APIHandler):
                                     }))
         c = ThreddsConfig(config=self.config)
         crawl = Crawl(catalog_url, workers=c.workers)
-        datasets = [flatten_dataset(d) for d in crawl.datasets]
+        datasets = sorted([flatten_dataset(d) for d in crawl.datasets], key=lambda d: d['id'])
         self.finish(json.dumps(datasets))
 
 

@@ -31,7 +31,7 @@ export class ThreddsDataset extends React.Component<IThreddsDatasetProps, {}> {
     render() {
         const d = this.props.dataset;
         return (
-            <li key={d.id} title={d.id}><span className="jp-DirListing-item jp-DirListing-itemText" onClick={this.onClick}>{d.name}</span></li>
+            <li key={d.id} title={d.id}><span className="jp-DirListing-item jp-DirListing-itemText" onClick={this.onClick}>{d.id}</span></li>
         );
     }
 }
