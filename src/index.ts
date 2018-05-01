@@ -20,7 +20,6 @@ const plugin: JupyterLabPlugin<void> = {
   autoStart: true
 };
 
-
 const NAMESPACE = 'thredds-filebrowser';
 
 /**
@@ -30,7 +29,7 @@ function activate(app: JupyterLab, tracker: INotebookTracker, restorer: ILayoutR
   const threddsBrowser = new ThreddsFileBrowser(tracker);
 
   restorer.add(threddsBrowser, NAMESPACE);
-  app.shell.addToLeftArea(threddsBrowser, { rank: 103 });
+  app.shell.addToLeftArea(threddsBrowser, { rank: 700 });
 };
 
 
