@@ -6,7 +6,7 @@ import {
 } from '@jupyterlab/services';
 import { URLExt } from '@jupyterlab/coreutils';
 import { ThreddsDataset, IDataset } from './listing';
-import { INotebookTracker, INotebookModel } from '@jupyterlab/notebook';
+import { INotebookTracker, INotebookModel, NotebookActions } from '@jupyterlab/notebook';
 import { CodeCellModel, ICellModel } from '@jupyterlab/cells';
 import { showErrorMessage } from '@jupyterlab/apputils';
 import { IObservableUndoableList } from '@jupyterlab/observables';
@@ -55,6 +55,7 @@ export class ThreddsFileBrowser extends Widget {
 
     leafletCode(dataset: IDataset) {
         const wms_url = this.urlOfService(dataset, 'WMS');
+
         return 'wms = ipyleaflet.WMSLayer(url="' + wms_url + '", layers="<Change to layer name(s) to render>")';
     }
 
@@ -62,8 +63,8 @@ export class ThreddsFileBrowser extends Widget {
         return this.tracker.currentWidget.model;
     }
 
-    notbookHasImport(cells: IObservableUndoableList<ICellModel>, importCode: string) {
-        const result = find(cells.iter(), (c) => c.type === 'code' && c.value.text.indexOf(importCode) !== -1);
+    notbookHasImport(cells: IObservableUndoableList<ICellModel>, importCode: string, offset=0) {
+        const result = find(cells.iter(), (c, i) => i <= offset && c.type === 'code' && c.value.text.indexOf(importCode) !== -1);
         return result !== undefined;
     }
 
@@ -86,28 +87,30 @@ export class ThreddsFileBrowser extends Widget {
             return;
         }
         let code = '';
+        const activeCellIndex = this.tracker.currentWidget.notebook.activeCellIndex;
         if (openas === 'iris') {
-            if (!this.notbookHasImport(nb.cells, 'import iris')) {
+            if (!this.notbookHasImport(nb.cells, 'import iris', activeCellIndex)) {
                 code += 'import iris\n';
             }
             code += this.irisCode(dataset);
         } else if (openas === 'xarray') {
-            if (!this.notbookHasImport(nb.cells, 'import xarray as xr')) {
+            if (!this.notbookHasImport(nb.cells, 'import xarray as xr', activeCellIndex)) {
                 code += 'import xarray as xr\n';
             }
-            code = this.xarrayCode(dataset);
+            code += this.xarrayCode(dataset);
         } else if (openas === 'leaflet') {
-            if (!this.notbookHasImport(nb.cells, 'import ipyleaflet')) {
+            if (!this.notbookHasImport(nb.cells, 'import ipyleaflet', activeCellIndex)) {
                 code += 'import ipyleaflet\n';
             }
-            code = this.leafletCode(dataset);
+            code += this.leafletCode(dataset);
         }
         const cell = this.codeCell(code);
         let cellIndex = nb.cells.length;
         if (this.tracker.activeCell) {
-            cellIndex = this.tracker.currentWidget.notebook.activeCellIndex + 1;
+            cellIndex = activeCellIndex + 1;
         }
         nb.cells.insert(cellIndex, cell);
+        NotebookActions.selectBelow(this.tracker.currentWidget.notebook);
     }
 }
 
