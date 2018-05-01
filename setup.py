@@ -22,7 +22,7 @@ setup_dict = dict(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
     ],
-    install_requires=['notebook', 'thredds_crawler', 'iris', 'xarray', 'ipyleaflet']
+    install_requires=['notebook', 'thredds_crawler', 'iris', 'xarray', 'ipyleaflet', 'OWSLib']
 )
 
 setuptools.setup(version=__version__, **setup_dict)

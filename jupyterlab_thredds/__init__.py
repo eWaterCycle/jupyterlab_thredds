@@ -8,6 +8,7 @@ from notebook.utils import url_path_join
 from notebook.base.handlers import APIHandler
 
 from thredds_crawler.crawl import Crawl
+from owslib.wms import WebMapService
 
 __version__ = '0.1.0'
 
@@ -21,13 +22,22 @@ class ThreddsConfig(Configurable):
 
 
 def flatten_dataset(dataset):
+    services = dataset.services
+    for service in services:
+        if service['name'] == 'wms':
+            service['layers'] = wms_layers(service['url'])
     return {
         'id': dataset.id,
         'name': dataset.name,
         'catalog_url': dataset.catalog_url,
-        'services': dataset.services,
+        'services': services,
         'data_size': dataset.data_size
     }
+
+
+def wms_layers(wms_url):
+    wms = WebMapService(wms_url)
+    return list(wms.contents.keys())
 
 
 class ThreddsHandler(APIHandler):

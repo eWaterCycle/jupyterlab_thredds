@@ -4,6 +4,7 @@ export interface IService {
     name: string;
     service: string;
     url: string;
+    layers?: string[];
 }
 
 export interface IDataset {

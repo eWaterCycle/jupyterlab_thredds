@@ -5,7 +5,7 @@ import {
     ServerConnection
 } from '@jupyterlab/services';
 import { URLExt } from '@jupyterlab/coreutils';
-import { ThreddsDataset, IDataset } from './listing';
+import { ThreddsDataset, IDataset, IService } from './listing';
 import { INotebookTracker, INotebookModel, NotebookActions } from '@jupyterlab/notebook';
 import { CodeCellModel, ICellModel } from '@jupyterlab/cells';
 import { showErrorMessage } from '@jupyterlab/apputils';
@@ -39,8 +39,12 @@ export class ThreddsFileBrowser extends Widget {
         })
     }
 
+    serviceByType(dataset: IDataset, service: string): IService {
+        return dataset.services.filter(s => s.service === service)[0];
+    }
+
     urlOfService(dataset: IDataset, service: string) {
-        return dataset.services.filter(s => s.service === service)[0].url;
+        return this.serviceByType(dataset, service).url;
     }
 
     irisCode(dataset: IDataset) {
@@ -54,16 +58,19 @@ export class ThreddsFileBrowser extends Widget {
     }
 
     leafletCode(dataset: IDataset) {
-        const wms_url = this.urlOfService(dataset, 'WMS');
-
-        return 'wms = ipyleaflet.WMSLayer(url="' + wms_url + '", layers="<Change to layer name(s) to render>")';
+        const service = this.serviceByType(dataset, 'WMS');
+        if (service.layers.length === 1) {
+            return 'wms = ipyleaflet.WMSLayer(url="' + service.url + '", layers="' + service.layers[0] + '")';
+        } else {
+            return 'wms = ipyleaflet.WMSLayer(url="' + service.url + '", layers=' + JSON.stringify(service.layers) + '[0])';
+        }
     }
 
     currentNotebook(): INotebookModel {
         return this.tracker.currentWidget.model;
     }
 
-    notbookHasImport(cells: IObservableUndoableList<ICellModel>, importCode: string, offset=0) {
+    notbookHasImport(cells: IObservableUndoableList<ICellModel>, importCode: string, offset = 0) {
         const result = find(cells.iter(), (c, i) => i <= offset && c.type === 'code' && c.value.text.indexOf(importCode) !== -1);
         return result !== undefined;
     }
