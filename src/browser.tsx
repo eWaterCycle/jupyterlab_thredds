@@ -109,7 +109,7 @@ export class ThreddsFileBrowser extends Widget {
             if (!this.notbookHasImport(nb.cells, 'import ipyleaflet', activeCellIndex)) {
                 code += 'import ipyleaflet\n';
             }
-            code += this.leafletCode(dataset);
+            code += "# Uncomment to view layer\n# m = ipyleaflet.Map(zoom=3)\n" + this.leafletCode(dataset) + "\n# m.add_layer(wms)\n# m";
         }
         const cell = this.codeCell(code);
         let cellIndex = nb.cells.length;
@@ -176,9 +176,20 @@ export class ThreddsCatalogBrowser extends React.Component<IProps, IState> {
         this.props.open(dataset, this.state.openas);
     }
 
+    supportedDataset(dataset: IDataset) {
+        const openas2service = new Map([
+            ['iris', 'OPENDAP'],
+            ['xarray', 'OPENDAP'],
+            ['leaflet', 'WMS'],
+            ['file', 'HTTPServer'],
+        ]);
+        const service_name = openas2service.get(this.state.openas);
+        return dataset.services.some(s => s.name === service_name);
+    }
+
     render() {
         const items = this.state.datasets.map((d) => (
-            <ThreddsDataset key={d.id} dataset={d} onClick={this.onDatasetClick} />
+            <ThreddsDataset key={d.id} dataset={d} onClick={this.onDatasetClick} disabled={this.supportedDataset(d)}/>
         ));
         return (
             <div>

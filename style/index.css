@@ -15,3 +15,11 @@
 .jp-TreddsBrowser-wrapper {
   padding: 2px;
 }
+
+.jp-TreddsBrowser-disabled {
+  color: var(--jp-ui-font-color3);
+}
+
+.jp-TreddsBrowser-item {
+  cursor: pointer;
+}
