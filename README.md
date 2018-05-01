@@ -4,7 +4,7 @@ JupyterLab dataset browser for [THREDDS catalog](https://www.unidata.ucar.edu/so
 
 Can inject iris/xarray/leaflet code cells into a Python notebook of a selected dataset to further proces/visualize the dataset.
 
-![screenshot](jupyterlab-thredds.png "Screenshot")
+![screenshot](jupyterlab_thredds.gif "Screenshot")
 
 ## Prerequisites
 
