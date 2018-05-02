@@ -1,0 +1,3 @@
+thredds_crawler
+pytest
+-e .
