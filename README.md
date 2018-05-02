@@ -11,6 +11,7 @@ Can inject iris/xarray/leaflet code cells into a Python notebook of a selected d
 * JupyterLab
 * ipywidgets, `jupyter labextension install @jupyter-widgets/jupyterlab-manager`
 * ipyleaflet, `jupyter labextension install jupyter-leaflet`
+* iris, http://scitools.org.uk/iris/docs/latest/index.html, `conda install -c conda-forge iris`
 
 ## Installation
 

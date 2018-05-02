@@ -1,4 +1,3 @@
-import logging
 import json
 
 from traitlets import Integer
@@ -43,9 +42,6 @@ def wms_layers(wms_url):
 class ThreddsHandler(APIHandler):
     """
     A thredds catalog crawler
-
-    TODO add select, skip and modified time filters
-
     """
 
     def data_received(self, chunk):
