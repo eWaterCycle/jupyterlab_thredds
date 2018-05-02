@@ -6,7 +6,7 @@
 
 JupyterLab dataset browser for [THREDDS catalog](https://www.unidata.ucar.edu/software/thredds/v4.6/tds/catalog/index.html)
 
-Can inject iris/xarray/leaflet code cells into a Python notebook of a selected dataset to further proces/visualize the dataset.
+Can inject [iris](http://scitools.org.uk/iris/docs/latest/index.html)/[xarray](https://xarray.pydata.org)/[leaflet](https://github.com/jupyter-widgets/ipyleaflet) code cells into a Python notebook of a selected dataset to further process/visualize the dataset.
 
 ![screenshot](jupyterlab_thredds.gif "Screenshot")
 
@@ -15,7 +15,7 @@ Can inject iris/xarray/leaflet code cells into a Python notebook of a selected d
 * JupyterLab
 * ipywidgets, `jupyter labextension install @jupyter-widgets/jupyterlab-manager`
 * ipyleaflet, `jupyter labextension install jupyter-leaflet`
-* iris, http://scitools.org.uk/iris/docs/latest/index.html, `conda install -c conda-forge iris`
+* [iris](http://scitools.org.uk/iris/docs/latest/index.html), `conda install -c conda-forge iris`
 
 ## Installation
 
@@ -23,8 +23,17 @@ Not released yet, must use development instructions to install.
 
 ```bash
 pip install jupyterlab_thredds
-jupyter labextension install jupyterlab_thredds
+jupyter labextension install @ewatercycle/jupyterlab_thredds
 ```
+
+## Usage
+
+1. In Jupyter lab open a notebook
+2. Open the `THREDDS` tab on the left side.
+3. Fill the catalog url
+4. Press search button
+5. Select how you would like to open the dataset, by default it uses [iris](http://scitools.org.uk/iris/docs/latest/index.html) Python package.
+6. Press a dataset to insert code into a notebook
 
 ## Development
 
@@ -52,11 +61,3 @@ npm run watch
 # shell 2
 jupyter lab --ip=0.0.0.0 --no-browser --watch
 ```
-
-## Usage
-
-1. In Jupyter lab open a notebook
-2. Open the `THREDDS` tab on the left side.
-3. File the catalog url
-4. Press search button
-5. Press a dataset to insert code into a notebook

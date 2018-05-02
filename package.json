@@ -1,5 +1,5 @@
 {
-  "name": "jupyterlab_thredds",
+  "name": "@ewatercycle/jupyterlab_thredds",
   "version": "0.1.0",
   "description": "JupyterLab viewer for Thredds catalog",
   "keywords": [
