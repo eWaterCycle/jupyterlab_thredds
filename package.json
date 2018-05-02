@@ -80,6 +80,7 @@
     ],
     "testPathIgnorePatterns": [
       "<rootDir>/lib"
-    ]
+    ],
+    "collectCoverage": true
   }
 }

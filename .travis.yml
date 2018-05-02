@@ -1,29 +1,25 @@
+language: node_js
+node_js: 8
 sudo: false
-matrix:
-  include:
-    - language: python
-      python: 3.6
-      before_install:
-        - if [ ! -e $HOME/conda/bin/activate ]; then
-          wget -nc https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh;
-          bash $INSTALLER -f -b -p $HOME/conda;
-          fi
-        - source $HOME/conda/bin/activate root
-      install:
-        - conda env update -f environment.yml
-        - pip install -r requirements.txt
-      script:
-        - pytest
-      cache:
-        directories:
-          - $HOME/.cache/pip
-          - $HOME/conda
-    - language: node_js
-      node_js: 8
-      cache:
-        directories:
-          - "node_modules"
-      script:
-        - npm test
-        - npm run lint
-        - npm run build
+before_install:
+    - if [ ! -e $HOME/conda/bin/activate ]; then
+      wget -nc https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh;
+      bash $INSTALLER -f -b -p $HOME/conda;
+      fi
+    - source $HOME/conda/bin/activate root
+install:
+    - conda env update -f environment.yml
+    - pip install -r requirements.txt
+    - npm install
+script:
+    - pytest --cov=jupyterlab_thredds --cov-report xml --cov-report term --cov-branch
+    - npm test
+    - npm run lint
+    - npm run build
+cache:
+    directories:
+      - $HOME/.cache/pip
+      - $HOME/conda
+      - "node_modules"
+after_success:
+ - sonar-scanner

@@ -1,3 +1,4 @@
 thredds_crawler
 pytest
+pytest-cov
 -e .
