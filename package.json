@@ -27,7 +27,8 @@
     "build": "tsc",
     "clean": "rimraf lib",
     "watch": "tsc -w",
-    "test": "jest"
+    "test": "jest",
+    "lint": "tslint --project tsconfig.json -t stylish"
   },
   "dependencies": {
     "@jupyterlab/application": "^0.16.0",
@@ -51,6 +52,8 @@
     "jest": "^22.4.3",
     "rimraf": "^2.6.2",
     "ts-jest": "^22.4.4",
+    "tslint": "^5.9.1",
+    "tslint-react": "^3.5.1",
     "typescript": "~2.6.2"
   },
   "resolutions": {
@@ -75,6 +78,8 @@
       "json",
       "node"
     ],
-    "testPathIgnorePatterns": ["<rootDir>/lib"]
+    "testPathIgnorePatterns": [
+      "<rootDir>/lib"
+    ]
   }
 }

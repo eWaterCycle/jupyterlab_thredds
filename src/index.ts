@@ -1,23 +1,18 @@
-import {
-  ILayoutRestorer, JupyterLab, JupyterLabPlugin
-} from '@jupyterlab/application';
+import { ILayoutRestorer, JupyterLab, JupyterLabPlugin } from '@jupyterlab/application';
 
-import {
-  INotebookTracker
-} from '@jupyterlab/notebook';
+import { INotebookTracker } from '@jupyterlab/notebook';
 
 import '../style/index.css';
-import { ThreddsFileBrowser } from './browser';
-
+import { ThreddsFileBrowser } from './widget';
 
 /**
  * The plugin registration information.
  */
 const plugin: JupyterLabPlugin<void> = {
   activate,
-  requires: [INotebookTracker, ILayoutRestorer],
+  autoStart: true,
   id: 'jupyterlab-thredds',
-  autoStart: true
+  requires: [INotebookTracker, ILayoutRestorer],
 };
 
 const NAMESPACE = 'thredds-filebrowser';
@@ -30,8 +25,7 @@ function activate(app: JupyterLab, tracker: INotebookTracker, restorer: ILayoutR
 
   restorer.add(threddsBrowser, NAMESPACE);
   app.shell.addToLeftArea(threddsBrowser, { rank: 700 });
-};
-
+}
 
 /**
  * Export the plugin as default.

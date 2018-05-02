@@ -22,8 +22,8 @@ export interface IThreddsDatasetsProps {
 
 export interface IThreddsDatasetProps {
     dataset: IDataset;
-    onClick(dataset: IDataset): void;
     disabled: boolean;
+    onClick(dataset: IDataset): void;
 }
 
 export class ThreddsDataset extends React.Component<IThreddsDatasetProps, {}> {
@@ -34,13 +34,20 @@ export class ThreddsDataset extends React.Component<IThreddsDatasetProps, {}> {
         const d = this.props.dataset;
         if (this.props.disabled) {
             return (
-                <li key={d.id} title="Can not open file with selected Open as" ><span className="jp-DirListing-item jp-DirListing-itemText jp-TreddsBrowser-item jp-TreddsBrowser-disabled">{d.id}</span></li>
+                <li key={d.id} title="Can not open file with selected Open as" >
+                    <span className="jp-DirListing-item jp-DirListing-itemText jp-TreddsBrowser-item jp-TreddsBrowser-disabled">
+                        {d.id}
+                    </span>
+                </li>
             );
         } else {
             return (
-                <li key={d.id} title={d.id}><span className="jp-DirListing-item jp-DirListing-itemText jp-TreddsBrowser-item" onClick={this.onClick}>{d.id}</span></li>
+                <li key={d.id} title={d.id}>
+                    <span className="jp-DirListing-item jp-DirListing-itemText jp-TreddsBrowser-item" onClick={this.onClick}>
+                        {d.id}
+                    </span>
+                </li>
             );
         }
     }
 }
-
