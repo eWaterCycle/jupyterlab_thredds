@@ -26,7 +26,8 @@
   "scripts": {
     "build": "tsc",
     "clean": "rimraf lib",
-    "watch": "tsc -w"
+    "watch": "tsc -w",
+    "test": "jest"
   },
   "dependencies": {
     "@jupyterlab/application": "^0.16.0",
@@ -42,9 +43,14 @@
     "xml-js": "^1.6.2"
   },
   "devDependencies": {
+    "@types/jest": "^22.2.3",
     "@types/react": "~16.0.19",
     "@types/react-dom": "~16.0.5",
+    "identity-obj-proxy": "^3.0.0",
+    "isomorphic-fetch": "^2.2.1",
+    "jest": "^22.4.3",
     "rimraf": "^2.6.2",
+    "ts-jest": "^22.4.4",
     "typescript": "~2.6.2"
   },
   "resolutions": {
@@ -52,5 +58,23 @@
   },
   "jupyterlab": {
     "extension": true
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleNameMapper": {
+      "\\.(css|less)$": "identity-obj-proxy"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "testPathIgnorePatterns": ["<rootDir>/lib"]
   }
 }

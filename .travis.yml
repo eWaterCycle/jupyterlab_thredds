@@ -20,3 +20,8 @@ matrix:
           - $HOME/conda
     - language: node_js
       node_js: 8
+      cache:
+        directories:
+          - "node_modules"
+      after_success:
+        - npm run build

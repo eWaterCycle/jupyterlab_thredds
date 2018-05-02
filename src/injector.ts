@@ -15,7 +15,7 @@ function urlOfService(dataset: IDataset, service: string) {
     return serviceByType(dataset, service).url;
 }
 
-function codeCell(code: string) {
+export function codeCell(code: string) {
     return new CodeCellModel({
         cell: {
             cell_type: 'code',
