@@ -5,7 +5,7 @@ data_files_spec = [
      'jupyter-config/jupyter_notebook_config.d', 'jupyterlab_thredds.json'),
 ]
 
-from jupyterlab_thredds import __version__
+exec(open('jupyterlab_thredds/version.py').read())
 
 setup_dict = dict(
     name='jupyterlab_thredds',

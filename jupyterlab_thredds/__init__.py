@@ -9,8 +9,6 @@ from notebook.base.handlers import APIHandler
 from thredds_crawler.crawl import Crawl
 from owslib.wms import WebMapService
 
-__version__ = '0.1.0'
-
 
 class ThreddsConfig(Configurable):
     """
