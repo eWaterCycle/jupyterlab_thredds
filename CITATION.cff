@@ -1,0 +1,14 @@
+# YAML 1.2
+# Metadata for citation of this software according to the CFF format (https://citation-file-format.github.io/)
+cff-version: 1.0.3
+message: If you use this software, please cite it as below.
+title: THREDDS browser for JupyterLab
+doi: 10.5281/zenodo.1241007
+authors:
+- given-names: Stefan
+  family-names: Verhoeven
+  affiliation: Netherlands eScience Center
+version: 0.1.0
+date-released: 2018-05-04
+repository-code: https://github.com/eWaterCycle/jupyterlab_thredds
+license: Apache-2.0
