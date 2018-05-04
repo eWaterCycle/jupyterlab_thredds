@@ -8,7 +8,7 @@ JupyterLab dataset browser for [THREDDS catalog](https://www.unidata.ucar.edu/so
 
 Can inject [iris](http://scitools.org.uk/iris/docs/latest/index.html)/[xarray](https://xarray.pydata.org)/[leaflet](https://github.com/jupyter-widgets/ipyleaflet) code cells into a Python notebook of a selected dataset to further process/visualize the dataset.
 
-![screenshot](jupyterlab_thredds.gif "Screenshot")
+![screenshot](https://github.com/eWaterCycle/jupyterlab_thredds/blob/master/jupyterlab_thredds.gif "Screenshot")
 
 ## Prerequisites
 
@@ -67,5 +67,5 @@ jupyter lab --ip=0.0.0.0 --no-browser --watch
 To make a new release perform the following steps:
 1. Update version in `package.json` and `jupyterlab_thredds/version.py`
 2. Make sure tests pass by running `npm test` and `pytest`
-3. Publish lab extension to npmjs with `npm run build` and `npm publish`
+3. Publish lab extension to npmjs with `npm run build` and `npm publish --access=public`
 4. Publish server extension to pypi with `python setup.py sdist bdist_wheel` and `twine upload dist/*`
