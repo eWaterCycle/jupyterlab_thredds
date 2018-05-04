@@ -13,3 +13,6 @@ coverage/
 package-lock.json
 xunit-reports/
 yarn.lock
+MANIFEST
+dist
+yarn-error.log

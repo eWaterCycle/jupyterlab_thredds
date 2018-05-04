@@ -11,7 +11,7 @@
   "bugs": {
     "url": "https://github.com/eWaterCycle/jupyterlab_thredds/issues"
   },
-  "license": "BSD-3-Clause",
+  "license": "Apache-2.0",
   "author": "Stefan Verhoeven",
   "files": [
     "lib/**/*.{d.ts,eot,gif,html,jpg,js,js.map,json,png,svg,woff2,ttf}",
