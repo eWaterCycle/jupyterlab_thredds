@@ -21,5 +21,8 @@ cache:
       - $HOME/.cache/pip
       - $HOME/conda
       - "node_modules"
+addons:
+  sonarcloud:
+    organization: ewatercycle
 after_success:
- - sonar-scanner
+ - sonar-scanner -Dsonar.login=$SONAR_TOKEN
