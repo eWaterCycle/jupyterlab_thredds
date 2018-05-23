@@ -3,12 +3,13 @@
 [![Build Status](https://travis-ci.org/eWaterCycle/jupyterlab_thredds.svg?branch=master)](https://travis-ci.org/eWaterCycle/jupyterlab_thredds)
 [![SonarCloud Quality](https://sonarcloud.io/api/project_badges/measure?project=jupyterlab_thredds&metric=alert_status)](https://sonarcloud.io/dashboard?id=jupyterlab_thredds)
 [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=jupyterlab_thredds&metric=coverage)](https://sonarcloud.io/component_measures?id=jupyterlab_thredds&metric=coverage)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1241007.svg)](https://doi.org/10.5281/zenodo.1241007)
 
 JupyterLab dataset browser for [THREDDS catalog](https://www.unidata.ucar.edu/software/thredds/v4.6/tds/catalog/index.html)
 
 Can inject [iris](http://scitools.org.uk/iris/docs/latest/index.html)/[xarray](https://xarray.pydata.org)/[leaflet](https://github.com/jupyter-widgets/ipyleaflet) code cells into a Python notebook of a selected dataset to further process/visualize the dataset.
 
-![screenshot](jupyterlab_thredds.gif "Screenshot")
+![screenshot](https://github.com/eWaterCycle/jupyterlab_thredds/blob/master/jupyterlab_thredds.gif "Screenshot")
 
 ## Prerequisites
 
@@ -61,3 +62,11 @@ npm run watch
 # shell 2
 jupyter lab --ip=0.0.0.0 --no-browser --watch
 ```
+
+## Release
+
+To make a new release perform the following steps:
+1. Update version in `package.json` and `jupyterlab_thredds/version.py`
+2. Make sure tests pass by running `npm test` and `pytest`
+3. Publish lab extension to npmjs with `npm run build` and `npm publish --access=public`
+4. Publish server extension to pypi with `python setup.py sdist bdist_wheel` and `twine upload dist/*`

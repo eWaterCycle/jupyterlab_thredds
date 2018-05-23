@@ -1,0 +1,4 @@
+include setupbase.py
+include README.md
+include package.json
+

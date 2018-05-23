@@ -11,7 +11,7 @@
   "bugs": {
     "url": "https://github.com/eWaterCycle/jupyterlab_thredds/issues"
   },
-  "license": "BSD-3-Clause",
+  "license": "Apache-2.0",
   "author": "Stefan Verhoeven",
   "files": [
     "lib/**/*.{d.ts,eot,gif,html,jpg,js,js.map,json,png,svg,woff2,ttf}",
@@ -40,8 +40,7 @@
     "@jupyterlab/services": "^2.0.0",
     "@phosphor/disposable": "^1.1.2",
     "react": "~16.2.0",
-    "react-dom": "~16.2.0",
-    "xml-js": "^1.6.2"
+    "react-dom": "~16.2.0"
   },
   "devDependencies": {
     "@types/jest": "^22.2.3",
