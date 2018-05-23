@@ -13,14 +13,12 @@ Can inject [iris](http://scitools.org.uk/iris/docs/latest/index.html)/[xarray](h
 
 ## Prerequisites
 
-* JupyterLab
-* ipywidgets, `jupyter labextension install @jupyter-widgets/jupyterlab-manager`
-* ipyleaflet, `jupyter labextension install jupyter-leaflet`
+* JupyterLab, `pip install jupyterlab`
+* ipywidgets, `jupyter labextension install @jupyter-widgets/jupyterlab-manager`, requirement for ipyleaflet
+* ipyleaflet, `jupyter labextension install jupyter-leaflet`, to load a WMS layer
 * [iris](http://scitools.org.uk/iris/docs/latest/index.html), `conda install -c conda-forge iris`
 
 ## Installation
-
-Not released yet, must use development instructions to install.
 
 ```bash
 pip install jupyterlab_thredds
@@ -29,6 +27,7 @@ jupyter labextension install @ewatercycle/jupyterlab_thredds
 
 ## Usage
 
+0. Start Jupyter lab with `jupyter lab`
 1. In Jupyter lab open a notebook
 2. Open the `THREDDS` tab on the left side.
 3. Fill the catalog url
