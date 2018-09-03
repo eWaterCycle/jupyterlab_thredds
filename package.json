@@ -62,6 +62,7 @@
     "extension": true
   },
   "jest": {
+    "testURL": "http://localhost",
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },
