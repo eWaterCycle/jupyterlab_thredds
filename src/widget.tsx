@@ -32,7 +32,7 @@ export class ThreddsFileBrowser extends Widget {
             showErrorMessage('Unable to inject cell without an active notebook', {});
             return;
         }
-        const notebook = this.tracker.currentWidget.notebook;
+        const notebook = this.tracker.currentWidget.content;
         this.injector.inject(dataset, openas, notebook);
     }
 }

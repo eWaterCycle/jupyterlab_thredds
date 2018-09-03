@@ -1,6 +1,6 @@
 {
   "name": "@ewatercycle/jupyterlab_thredds",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "JupyterLab viewer for Thredds catalog",
   "keywords": [
     "jupyter",
@@ -31,21 +31,21 @@
     "lint": "tslint --project tsconfig.json -t stylish"
   },
   "dependencies": {
-    "@jupyterlab/application": "^0.16.0",
-    "@jupyterlab/apputils": "^0.16.0",
-    "@jupyterlab/docmanager": "^0.16.0",
-    "@jupyterlab/docregistry": "^0.16.0",
-    "@jupyterlab/filebrowser": "^0.16.0",
-    "@jupyterlab/notebook": "^0.16.0",
-    "@jupyterlab/services": "^2.0.0",
+    "@jupyterlab/application": "^0.18.0",
+    "@jupyterlab/apputils": "^0.18.0",
+    "@jupyterlab/docmanager": "^0.18.0",
+    "@jupyterlab/docregistry": "^0.18.0",
+    "@jupyterlab/filebrowser": "^0.18.0",
+    "@jupyterlab/notebook": "^0.18.0",
+    "@jupyterlab/services": "^3.0.0",
     "@phosphor/disposable": "^1.1.2",
-    "react": "~16.2.0",
-    "react-dom": "~16.2.0"
+    "react": "~16.4.0",
+    "react-dom": "~16.4.0"
   },
   "devDependencies": {
     "@types/jest": "^22.2.3",
-    "@types/react": "~16.0.19",
-    "@types/react-dom": "~16.0.5",
+    "@types/react": "~16.4.13",
+    "@types/react-dom": "~16.0.7",
     "identity-obj-proxy": "^3.0.0",
     "isomorphic-fetch": "^2.2.1",
     "jest": "^22.4.3",

@@ -38,7 +38,7 @@ export class ThreddsCatalogBrowser extends React.Component<IProps, IState> {
 
     fetchDatasets(catalogUrl: string) {
         const query = { catalog_url: this.state.catalog_url };
-        const url = URLExt.join(this.serverSettings.baseUrl, 'thredds', URLExt.objectToQueryString(query));
+        const url = URLExt.join(this.serverSettings.baseUrl, 'thredds') + URLExt.objectToQueryString(query);
         ServerConnection.makeRequest(url, {}, this.serverSettings).then((response) => {
             if (response.status !== 200) {
                 return response.json().then((data) => {
