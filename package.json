@@ -44,8 +44,8 @@
   },
   "devDependencies": {
     "@types/jest": "^22.2.3",
-    "@types/react": "~16.4.13",
-    "@types/react-dom": "~16.0.7",
+    "@types/react": "~16.0.19",
+    "@types/react-dom": "~16.0.5",
     "identity-obj-proxy": "^3.0.0",
     "isomorphic-fetch": "^2.2.1",
     "jest": "^22.4.3",
