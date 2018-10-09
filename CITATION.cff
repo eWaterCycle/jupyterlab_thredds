@@ -12,3 +12,9 @@ version: 0.1.0
 date-released: 2018-05-04
 repository-code: https://github.com/eWaterCycle/jupyterlab_thredds
 license: Apache-2.0
+keywords:
+- jupyter
+- thredds
+- notebook
+- python
+- swagger

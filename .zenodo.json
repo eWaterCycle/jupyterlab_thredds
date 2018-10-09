@@ -1,4 +1,11 @@
 {
   "license": "Apache-2.0",
-  "title": "THREDDS browser for JupyterLab"
+  "title": "THREDDS browser for JupyterLab",
+  "keywords": [
+    "jupyter",
+    "thredds",
+    "notebook",
+    "python",
+    "swagger"
+  ]
 }
