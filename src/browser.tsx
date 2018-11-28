@@ -65,7 +65,7 @@ export class ThreddsCatalogBrowser extends React.Component<IProps, IState> {
 
     render() {
         const datasets = this.state.datasets.map((d) => (
-            <ThreddsDataset key={d.id} dataset={d} onClick={this.onDatasetClick} disabled={this.injector.supportedDataset(d, this.state.openas)}/>
+            <ThreddsDataset key={d.id} dataset={d} onClick={this.onDatasetClick} disabled={!this.injector.supportedDataset(d, this.state.openas)}/>
         ));
         const injectors = this.injector.injectors.map((c) => (
             <option value={c.id}>{c.label}</option>
