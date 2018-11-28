@@ -1,6 +1,6 @@
 {
   "name": "@ewatercycle/jupyterlab_thredds",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "JupyterLab viewer for Thredds catalog",
   "keywords": [
     "jupyter",
@@ -31,12 +31,12 @@
     "lint": "tslint --project tsconfig.json -t stylish"
   },
   "dependencies": {
-    "@jupyterlab/application": "^0.18.0",
-    "@jupyterlab/apputils": "^0.18.0",
-    "@jupyterlab/docmanager": "^0.18.0",
-    "@jupyterlab/docregistry": "^0.18.0",
-    "@jupyterlab/filebrowser": "^0.18.0",
-    "@jupyterlab/notebook": "^0.18.0",
+    "@jupyterlab/application": "^0.19.0",
+    "@jupyterlab/apputils": "^0.19.0",
+    "@jupyterlab/docmanager": "^0.19.0",
+    "@jupyterlab/docregistry": "^0.19.0",
+    "@jupyterlab/filebrowser": "^0.19.0",
+    "@jupyterlab/notebook": "^0.19.0",
     "@jupyterlab/services": "^3.0.0",
     "@phosphor/disposable": "^1.1.2",
     "react": "~16.4.0",
