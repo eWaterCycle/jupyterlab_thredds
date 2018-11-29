@@ -65,7 +65,9 @@ jupyter lab --ip=0.0.0.0 --no-browser --watch
 ## Release
 
 To make a new release perform the following steps:
-1. Update version in `package.json` and `jupyterlab_thredds/version.py`
+1. Update version in `package.json`, `CITATION.cff` and `jupyterlab_thredds/version.py`
 2. Make sure tests pass by running `yarn test` and `pytest`
 3. Publish lab extension to npmjs with `yarn build` and `yarn publish --access=public`
 4. Publish server extension to pypi with `python setup.py sdist bdist_wheel` and `twine upload dist/*`
+5. Create GitHub release
+6. Update DOI in `README.md` and `CITATION.cff`
