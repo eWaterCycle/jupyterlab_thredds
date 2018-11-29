@@ -14,3 +14,6 @@ For QGIS there is the [THREDDSExplorer](https://github.com/IHCantabria/THREDDSEx
 
 Version 5 of the THREDDS server has on the dataset information page a Jupyter notebook available for download. 
 This Jupyter extension does the opposite, it allow you to browse the THREDDS server from inside a Jupyter environmnent and add a code cell in a notebook to open the dataset.
+
+There is no other Jupyter lab extension which inserts cells into a notebook besides the [JupyterLab Notebook Provenance](https://github.com/Caleydo/jupyterlab_nbprovenance) which can restore cells previously removed.
+The idea of inserting cells could also be used for a snippet library extension.
