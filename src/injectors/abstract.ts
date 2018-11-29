@@ -14,6 +14,6 @@ export abstract class AbstractInjector {
     abstract inject(dataset: IDataset, notebook: Notebook): void;
 
     supports(dataset: IDataset) {
-        return dataset.services.some((s) => s.name === this.service);
+        return dataset.services.some((s) => s.service.toLowerCase() === this.service.toLowerCase());
     }
 }

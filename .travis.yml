@@ -10,17 +10,18 @@ before_install:
 install:
     - conda env update -f environment.yml
     - pip install -r requirements.txt
-    - npm install
+    - yarn install
 script:
     - pytest --cov=jupyterlab_thredds --cov-report xml --cov-report term --cov-branch
-    - npm test
-    - npm run lint
-    - npm run build
+    - yarn test
+    - yarn lint
+    - yarn build
 cache:
     directories:
       - $HOME/.cache/pip
       - $HOME/conda
       - "node_modules"
+    yarn: true
 addons:
   sonarcloud:
     organization: ewatercycle

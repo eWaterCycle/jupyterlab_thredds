@@ -37,11 +37,11 @@ jupyter labextension install @ewatercycle/jupyterlab_thredds
 
 ## Development
 
-For a development install (requires npm version 4 or later), do the following in the repository directory:
+For a development install (requires [yarn](https://yarnpkg.com/)), do the following in the repository directory:
 
 ```bash
-npm install
-npm run build
+yarn install
+yarn build
 jupyter labextension link .
 python setup.py develop
 jupyter serverextension enable --sys-prefix jupyterlab_thredds
@@ -50,14 +50,14 @@ jupyter serverextension enable --sys-prefix jupyterlab_thredds
 To rebuild the package and the JupyterLab app:
 
 ```bash
-npm run build
+yarn build
 jupyter lab build
 ```
 
 Watch mode
 ```bash
 # shell 1
-npm run watch
+yarm watch
 # shell 2
 jupyter lab --ip=0.0.0.0 --no-browser --watch
 ```

@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### Changed
+
+* Compatible with Jupyter Lab v0.35.4
+* Pinned xarray dependency so ipyleaflet is satisfied
+
 ## [0.2.0] - 2018-09-03
 
 ### Changed

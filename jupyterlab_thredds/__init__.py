@@ -1,11 +1,10 @@
 import json
 
+from requests import RequestException
 from traitlets import Integer
 from traitlets.config import Configurable
-
 from notebook.utils import url_path_join
 from notebook.base.handlers import IPythonHandler
-
 from thredds_crawler.crawl import Crawl
 from owslib.wms import WebMapService
 
@@ -19,10 +18,15 @@ class ThreddsConfig(Configurable):
 
 
 def flatten_dataset(dataset):
-    services = dataset.services
-    for service in services:
-        if service['name'] == 'wms':
-            service['layers'] = wms_layers(service['url'])
+    services = []
+    for service in dataset.services:
+        if service['service'].lower() == 'wms':
+            try:
+                service['layers'] = wms_layers(service['url'])
+            except RequestException:
+                # Unable to fetch capabilities of wms service, skip the service
+                continue
+        services.append(service)
     return {
         'id': dataset.id,
         'name': dataset.name,

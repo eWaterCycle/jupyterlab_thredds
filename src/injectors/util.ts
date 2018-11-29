@@ -3,7 +3,7 @@ import { CodeCellModel } from '@jupyterlab/cells';
 import { IDataset, IService } from '../listing';
 
 export function serviceByType(dataset: IDataset, service: string): IService {
-    return dataset.services.filter((s) => s.service === service)[0];
+    return dataset.services.filter((s) => s.service.toLowerCase() === service.toLowerCase())[0];
 }
 
 export function urlOfService(dataset: IDataset, service: string) {
