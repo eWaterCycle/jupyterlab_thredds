@@ -24,3 +24,7 @@
 .jp-TreddsBrowser-item {
   cursor: pointer;
 }
+
+.jp-ThreddsBrowser-fetcherror {
+  color: var(--jp-warn-color1);
+}
