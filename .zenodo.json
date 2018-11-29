@@ -6,6 +6,7 @@
     "thredds",
     "notebook",
     "python",
-    "swagger"
+    "opendap",
+    "netcdf"
   ]
 }

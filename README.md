@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/eWaterCycle/jupyterlab_thredds.svg?branch=master)](https://travis-ci.org/eWaterCycle/jupyterlab_thredds)
 [![SonarCloud Quality](https://sonarcloud.io/api/project_badges/measure?project=jupyterlab_thredds&metric=alert_status)](https://sonarcloud.io/dashboard?id=jupyterlab_thredds)
 [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=jupyterlab_thredds&metric=coverage)](https://sonarcloud.io/component_measures?id=jupyterlab_thredds&metric=coverage)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1241007.svg)](https://doi.org/10.5281/zenodo.1241007)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1241006.svg)](https://doi.org/10.5281/zenodo.1241006)
 
 JupyterLab dataset browser for [THREDDS catalog](https://www.unidata.ucar.edu/software/thredds/v4.6/tds/catalog/index.html)
 
@@ -65,7 +65,9 @@ jupyter lab --ip=0.0.0.0 --no-browser --watch
 ## Release
 
 To make a new release perform the following steps:
-1. Update version in `package.json` and `jupyterlab_thredds/version.py`
-2. Make sure tests pass by running `npm test` and `pytest`
-3. Publish lab extension to npmjs with `npm run build` and `npm publish --access=public`
+1. Update version in `package.json`, `CITATION.cff` and `jupyterlab_thredds/version.py`
+2. Make sure tests pass by running `yarn test` and `pytest`
+3. Publish lab extension to npmjs with `yarn build` and `yarn publish --access=public`
 4. Publish server extension to pypi with `python setup.py sdist bdist_wheel` and `twine upload dist/*`
+5. Create GitHub release
+6. Update DOI in `README.md` and `CITATION.cff`
