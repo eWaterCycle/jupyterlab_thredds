@@ -13,7 +13,11 @@ export abstract class AbstractInjector {
      */
     abstract inject(dataset: IDataset, notebook: Notebook): void;
 
+    /**
+     * @param dataset Dataset to check if it is supported by this injector
+     * @returns Whether dataset is supported by this injector based on the services of the dataset
+     */
     supports(dataset: IDataset) {
-        return dataset.services.some((s) => s.service.toLowerCase() === this.service.toLowerCase());
+        return dataset.services.hasOwnProperty(this.service);
     }
 }

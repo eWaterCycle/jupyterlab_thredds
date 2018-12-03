@@ -14,7 +14,7 @@ export abstract class CodeInjector extends AbstractInjector {
 
     abstract code(dataset: IDataset): string;
 
-    notbookHasImport(cells: IObservableUndoableList<ICellModel>, offset = 0) {
+    notebookHasImport(cells: IObservableUndoableList<ICellModel>, offset = 0) {
         const result = find(cells.iter(), (c, i) => i <= offset && c.type === 'code' && c.value.text.indexOf(this.importSnippet) !== -1);
         return result !== undefined;
     }
@@ -29,7 +29,7 @@ export abstract class CodeInjector extends AbstractInjector {
         }
         let code = '';
         const activeCellIndex = notebook.activeCellIndex;
-        if (this.importSnippet && !this.notbookHasImport(model.cells, activeCellIndex)) {
+        if (this.importSnippet && !this.notebookHasImport(model.cells, activeCellIndex)) {
             code += this.importSnippet + '\n';
         }
         code += this.code(dataset);

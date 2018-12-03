@@ -1,18 +1,16 @@
 import * as React from 'react';
 
+/**
+ * Services object where key is serviceType in uppercase and value is url of service
+ */
 export interface IService {
-    name: string;
-    service: string;
-    url: string;
-    layers?: string[];
+    [Key: string]: string;
 }
 
 export interface IDataset {
-    catalog_url: string;
-    date_size: number;
     id: string;
     name: string;
-    services: IService[];
+    services: IService;
 }
 
 export interface IThreddsDatasetsProps {

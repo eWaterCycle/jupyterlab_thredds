@@ -1,13 +1,9 @@
 import { CodeCellModel } from '@jupyterlab/cells';
 
-import { IDataset, IService } from '../listing';
-
-export function serviceByType(dataset: IDataset, service: string): IService {
-    return dataset.services.filter((s) => s.service.toLowerCase() === service.toLowerCase())[0];
-}
+import { IDataset } from '../listing';
 
 export function urlOfService(dataset: IDataset, service: string) {
-    return serviceByType(dataset, service).url;
+    return dataset.services[service];
 }
 
 export function codeCell(code: string) {
