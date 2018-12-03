@@ -1,28 +1,27 @@
 import { IDataset } from '../../listing';
 import { CodeInjector } from '../code';
-import { serviceByType } from '../util';
+import { urlOfService } from '../util';
 
 export class LeafletInjector extends CodeInjector {
     id =  'leaflet';
     label = 'Leaflet WMS layer';
     service = 'WMS';
-    importSnippet = 'import ipyleaflet';
+    importSnippet = `import ipyleaflet
+from owslib.wms import WebMapService
+`;
     kernel = 'python';
 
     pureCode(dataset: IDataset) {
-        const service = serviceByType(dataset, this.service);
-        if (service.layers.length === 1) {
-            return `wms = ipyleaflet.WMSLayer(url="${service.url}", layers="${service.layers[0]}")`;
-        } else {
-            const layers = JSON.stringify(service.layers);
-            return `wms = ipyleaflet.WMSLayer(url="${service.url}", layers=${layers}[0])`;
-        }
+        const url = urlOfService(dataset, this.service);
+        return `wms_url = "${url}"
+wms_layers = list(WebMapService(wms_url).contents.keys())
+wms = ipyleaflet.WMSLayer(url=wms_url, layers=wms_layers[0])`;
     }
 
     code(dataset: IDataset) {
-        return `# Uncomment to view layer
+        return `${this.pureCode(dataset)}
+# Uncomment below to view first WMS layer
 # m = ipyleaflet.Map(zoom=3)
-${this.pureCode(dataset)}
 # m.add_layer(wms)
 # m`;
     }

@@ -37,8 +37,8 @@ setup_dict = dict(
     ],
     install_requires=[
         'notebook',
-        'thredds_crawler>=1.5.3',
-        'xarray>=0.10,<0.10.8',
+        'siphon',
+        'xarray>=0.10,<0.10.8',  # pinned due to ipyleaflet py3.4 compatibility
         'ipyleaflet',
         'OWSLib',
         'traitlets',

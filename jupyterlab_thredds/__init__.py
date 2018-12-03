@@ -1,12 +1,12 @@
+import asyncio
 import json
 
-from requests import RequestException
 from traitlets import Integer
 from traitlets.config import Configurable
 from notebook.utils import url_path_join
 from notebook.base.handlers import IPythonHandler
-from thredds_crawler.crawl import Crawl
-from owslib.wms import WebMapService
+
+from jupyterlab_thredds.crawler import crawl
 
 
 class ThreddsConfig(Configurable):
@@ -17,30 +17,6 @@ class ThreddsConfig(Configurable):
     workers = Integer(4, config=True, help='Number of workers to use for crawling')
 
 
-def flatten_dataset(dataset):
-    services = []
-    for service in dataset.services:
-        if service['service'].lower() == 'wms':
-            try:
-                service['layers'] = wms_layers(service['url'])
-            except RequestException:
-                # Unable to fetch capabilities of wms service, skip the service
-                continue
-        services.append(service)
-    return {
-        'id': dataset.id,
-        'name': dataset.name,
-        'catalog_url': dataset.catalog_url,
-        'services': services,
-        'data_size': dataset.data_size
-    }
-
-
-def wms_layers(wms_url):
-    wms = WebMapService(wms_url)
-    return list(wms.contents.keys())
-
-
 class ThreddsHandler(IPythonHandler):
     """
     A thredds catalog crawler
@@ -49,12 +25,13 @@ class ThreddsHandler(IPythonHandler):
     def data_received(self, chunk):
         pass
 
-    def get(self):
+    async def get(self):
         catalog_url = self.get_argument('catalog_url')
         self.set_header('Content-Type', 'application/json')
-        c = ThreddsConfig(config=self.config)
-        crawl = Crawl(catalog_url, workers=c.workers)
-        datasets = sorted([flatten_dataset(d) for d in crawl.datasets], key=lambda d: d['id'])
+        # c = ThreddsConfig(config=self.config)
+        # c.workers
+        loop = asyncio.get_event_loop()
+        datasets = await loop.run_in_executor(None, crawl, catalog_url)
         self.finish(json.dumps(datasets))
 
 
