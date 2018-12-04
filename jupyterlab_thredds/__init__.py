@@ -6,7 +6,7 @@ from traitlets.config import Configurable
 from notebook.utils import url_path_join
 from notebook.base.handlers import IPythonHandler
 
-from jupyterlab_thredds.crawler import crawl
+from jupyterlab_thredds.crawler import TDSCrawler
 
 
 class ThreddsConfig(Configurable):
@@ -31,7 +31,9 @@ class ThreddsHandler(IPythonHandler):
         # c = ThreddsConfig(config=self.config)
         # c.workers
         loop = asyncio.get_event_loop()
-        datasets = await loop.run_in_executor(None, crawl, catalog_url)
+        crawler = TDSCrawler(catalog_url, loop)
+        timeout = 120
+        datasets = await asyncio.wait_for(crawler.run(), timeout)
         self.finish(json.dumps(datasets))
 
 
