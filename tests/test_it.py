@@ -2,5 +2,5 @@ from jupyterlab_thredds import ThreddsConfig
 
 
 def test_ThreddsConfig():
-    config = ThreddsConfig(workers=42)
-    assert config.workers == 42
+    config = ThreddsConfig(maxtasks=42, timeout=123)
+    assert config.maxtasks == 42 and config.timeout == 123

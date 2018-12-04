@@ -1,12 +1,6 @@
-from typing import List
-
-
+from typing import Dict
 import asyncio
 import logging
-import re
-import signal
-import sys
-import urllib.parse
 
 import aiohttp
 import xml.etree.ElementTree as ET
@@ -14,19 +8,12 @@ from siphon.catalog import TDSCatalog, Dataset, DatasetCollection, CaseInsensiti
     _find_base_tds_url
 
 
-def crawl(catalog_url: str):
-    catalog = TDSCatalog(catalog_url)
-    return [ds2json(ds) for ds in traverse_catalog(catalog)]
+logger = logging.getLogger(__name__)
 
 
-def traverse_catalog(catalog: TDSCatalog) -> List[Dataset]:
-    for dataset in sorted(catalog.datasets.values(), key=lambda d: d.url_path):
-        yield dataset
-    for cat in sorted(catalog.catalog_refs.values(), key=lambda c: c.href):
-        yield from traverse_catalog(cat.follow())
-
-
-def ds2json(dataset: Dataset):
+def ds2json(dataset: Dataset) -> Dict:
+    """Converts siphon.catalog.Dataset to a simple dictionary that is JSON serializable
+    """
     services = {k.upper(): v for k, v in dataset.access_urls.items()}
     return {
         'name': dataset.name,
@@ -36,13 +23,14 @@ def ds2json(dataset: Dataset):
 
 
 class AsyncTDSCatalog(TDSCatalog):
-    def __init__(self, catalog_url, content):
+    def __init__(self, catalog_url: str, content: str):
         """Same as siphon.catalog.TDSCatalog, but with constructor which takes url and response
 
         So it can be used by a generic asynchronous web crawler
 
-        :param catalog_url:
-        :param content:
+        Args:
+            catalog_url: URL with THREDDS catalog xml file
+            content: Content found at catalog_url
         """
         self.catalog_url = catalog_url
         self.base_tds_url = _find_base_tds_url(self.catalog_url)
@@ -102,14 +90,15 @@ class AsyncTDSCatalog(TDSCatalog):
 
 
 class TDSCrawler:
-    def __init__(self, rooturl, loop, maxtasks=100):
-        """
+    def __init__(self, rooturl: str, loop, maxtasks=10):
+        """Asynchronous THREDDS catalog crawler
 
         Crawler based on https://github.com/aio-libs/aiohttp/blob/master/examples/legacy/crawl.py
 
-        :param rooturl:
-        :param loop:
-        :param maxtasks:
+        Args:
+            rooturl: URL with THREDDS catalog xml file
+            loop: Event loop, eg. asyncio.get_event_loop()
+            maxtasks: Number of download tasks to run concurrently
         """
         self.rooturl = rooturl
         self.loop = loop
@@ -122,16 +111,21 @@ class TDSCrawler:
         self.datasets = []
 
     async def run(self):
+        """Starts crawling the catalog recursively
+
+        Returns:
+            List of datasets
+        """
+        delay = 0.2
         t = asyncio.ensure_future(self.addurls([self.rooturl]),
                                   loop=self.loop)
-        await asyncio.sleep(1, loop=self.loop)
+        await asyncio.sleep(delay, loop=self.loop)
         while self.busy:
-            await asyncio.sleep(1, loop=self.loop)
+            await asyncio.sleep(delay, loop=self.loop)
 
         await t
         await self.session.close()
         return self.datasets
-        # self.loop.stop()
 
     async def addurls(self, urls):
         for url in urls:
@@ -146,29 +140,29 @@ class TDSCrawler:
                 self.tasks.add(task)
 
     async def process(self, url):
-        print('processing:', url)
+        logger.info('processing: %s', url)
 
         self.todo.remove(url)
         self.busy.add(url)
         try:
             resp = await self.session.get(url)
         except Exception as exc:
-            print('...', url, 'has error', repr(str(exc)))
+            logger.warning('... %s has error: %s', url, exc)
             self.done[url] = False
         else:
             if (resp.status == 200 and
-                    ('application/xml' in resp.headers.get('content-type'))):
+                    ('application/xml' in resp.headers.get('Content-Type'))):
                 data = (await resp.read()).decode('utf-8', 'replace')
                 cat = AsyncTDSCatalog(url, data)
                 urls = [c.href for c in cat.catalog_refs.values()]
-                asyncio.Task(self.addurls(urls))
+                await asyncio.Task(self.addurls(urls))
                 self.datasets += [ds2json(d) for d in cat.datasets.values()]
                 self.done[url] = True
             else:
-                print('...', url, 'has error', repr(str(resp)))
+                logger.warning('... %s has error %s', url, resp)
                 self.done[url] = False
             resp.close()
 
         self.busy.remove(url)
-        print(len(self.done), 'completed tasks,', len(self.tasks),
-              'still pending, todo', len(self.todo))
+        logger.info('%s completed tasks, %s still pending, todo %s',
+                    len(self.done), len(self.tasks), len(self.todo))

@@ -1,0 +1,86 @@
+[
+  {
+    "name": "dischargeEnsStdOut.nc",
+    "id": "ewc/dischargeEnsStdOut.nc",
+    "services": {
+      "OPENDAP": "http://localhost:8080/thredds/dodsC/ewc/dischargeEnsStdOut.nc",
+      "DAP4": "http://localhost:8080/thredds/dap4/ewc/dischargeEnsStdOut.nc",
+      "HTTPSERVER": "http://localhost:8080/thredds/fileServer/ewc/dischargeEnsStdOut.nc",
+      "WCS": "http://localhost:8080/thredds/wcs/ewc/dischargeEnsStdOut.nc",
+      "WMS": "http://localhost:8080/thredds/wms/ewc/dischargeEnsStdOut.nc",
+      "NETCDFSUBSET": "http://localhost:8080/thredds/ncss/ewc/dischargeEnsStdOut.nc"
+    }
+  },
+  {
+    "name": "dischargeEns.nc",
+    "id": "ewc/dischargeEns.nc",
+    "services": {
+      "OPENDAP": "http://localhost:8080/thredds/dodsC/ewc/dischargeEns.nc",
+      "DAP4": "http://localhost:8080/thredds/dap4/ewc/dischargeEns.nc",
+      "HTTPSERVER": "http://localhost:8080/thredds/fileServer/ewc/dischargeEns.nc",
+      "WCS": "http://localhost:8080/thredds/wcs/ewc/dischargeEns.nc",
+      "WMS": "http://localhost:8080/thredds/wms/ewc/dischargeEns.nc",
+      "NETCDFSUBSET": "http://localhost:8080/thredds/ncss/ewc/dischargeEns.nc"
+    }
+  },
+  {
+    "name": "tempEnsMem01.nc",
+    "id": "ewc/forcingEnsemble/tempEnsMem01.nc",
+    "services": {
+      "OPENDAP": "http://localhost:8080/thredds/dodsC/ewc/forcingEnsemble/tempEnsMem01.nc",
+      "DAP4": "http://localhost:8080/thredds/dap4/ewc/forcingEnsemble/tempEnsMem01.nc",
+      "HTTPSERVER": "http://localhost:8080/thredds/fileServer/ewc/forcingEnsemble/tempEnsMem01.nc",
+      "WCS": "http://localhost:8080/thredds/wcs/ewc/forcingEnsemble/tempEnsMem01.nc",
+      "WMS": "http://localhost:8080/thredds/wms/ewc/forcingEnsemble/tempEnsMem01.nc",
+      "NETCDFSUBSET": "http://localhost:8080/thredds/ncss/ewc/forcingEnsemble/tempEnsMem01.nc"
+    }
+  },
+  {
+    "name": "precipEnsMem01.nc",
+    "id": "ewc/forcingEnsemble/precipEnsMem01.nc",
+    "services": {
+      "OPENDAP": "http://localhost:8080/thredds/dodsC/ewc/forcingEnsemble/precipEnsMem01.nc",
+      "DAP4": "http://localhost:8080/thredds/dap4/ewc/forcingEnsemble/precipEnsMem01.nc",
+      "HTTPSERVER": "http://localhost:8080/thredds/fileServer/ewc/forcingEnsemble/precipEnsMem01.nc",
+      "WCS": "http://localhost:8080/thredds/wcs/ewc/forcingEnsemble/precipEnsMem01.nc",
+      "WMS": "http://localhost:8080/thredds/wms/ewc/forcingEnsemble/precipEnsMem01.nc",
+      "NETCDFSUBSET": "http://localhost:8080/thredds/ncss/ewc/forcingEnsemble/precipEnsMem01.nc"
+    }
+  },
+  {
+    "name": "totalEvaporation_dailyTot_output.nc",
+    "id": "ewc/work01/output/netcdf/totalEvaporation_dailyTot_output.nc",
+    "services": {
+      "OPENDAP": "http://localhost:8080/thredds/dodsC/ewc/work01/output/netcdf/totalEvaporation_dailyTot_output.nc",
+      "DAP4": "http://localhost:8080/thredds/dap4/ewc/work01/output/netcdf/totalEvaporation_dailyTot_output.nc",
+      "HTTPSERVER": "http://localhost:8080/thredds/fileServer/ewc/work01/output/netcdf/totalEvaporation_dailyTot_output.nc",
+      "WCS": "http://localhost:8080/thredds/wcs/ewc/work01/output/netcdf/totalEvaporation_dailyTot_output.nc",
+      "WMS": "http://localhost:8080/thredds/wms/ewc/work01/output/netcdf/totalEvaporation_dailyTot_output.nc",
+      "NETCDFSUBSET": "http://localhost:8080/thredds/ncss/ewc/work01/output/netcdf/totalEvaporation_dailyTot_output.nc"
+    }
+  },
+  {
+    "name": "satDegUppSurface_dailyTot_output.nc",
+    "id": "ewc/work01/output/netcdf/satDegUppSurface_dailyTot_output.nc",
+    "services": {
+      "OPENDAP": "http://localhost:8080/thredds/dodsC/ewc/work01/output/netcdf/satDegUppSurface_dailyTot_output.nc",
+      "DAP4": "http://localhost:8080/thredds/dap4/ewc/work01/output/netcdf/satDegUppSurface_dailyTot_output.nc",
+      "HTTPSERVER": "http://localhost:8080/thredds/fileServer/ewc/work01/output/netcdf/satDegUppSurface_dailyTot_output.nc",
+      "WCS": "http://localhost:8080/thredds/wcs/ewc/work01/output/netcdf/satDegUppSurface_dailyTot_output.nc",
+      "WMS": "http://localhost:8080/thredds/wms/ewc/work01/output/netcdf/satDegUppSurface_dailyTot_output.nc",
+      "NETCDFSUBSET": "http://localhost:8080/thredds/ncss/ewc/work01/output/netcdf/satDegUppSurface_dailyTot_output.nc"
+    }
+  },
+  {
+    "name": "discharge_dailyTot_output.nc",
+    "id": "ewc/work01/output/netcdf/discharge_dailyTot_output.nc",
+    "services": {
+      "OPENDAP": "http://localhost:8080/thredds/dodsC/ewc/work01/output/netcdf/discharge_dailyTot_output.nc",
+      "DAP4": "http://localhost:8080/thredds/dap4/ewc/work01/output/netcdf/discharge_dailyTot_output.nc",
+      "HTTPSERVER": "http://localhost:8080/thredds/fileServer/ewc/work01/output/netcdf/discharge_dailyTot_output.nc",
+      "WCS": "http://localhost:8080/thredds/wcs/ewc/work01/output/netcdf/discharge_dailyTot_output.nc",
+      "WMS": "http://localhost:8080/thredds/wms/ewc/work01/output/netcdf/discharge_dailyTot_output.nc",
+      "NETCDFSUBSET": "http://localhost:8080/thredds/ncss/ewc/work01/output/netcdf/discharge_dailyTot_output.nc"
+    }
+  }
+]

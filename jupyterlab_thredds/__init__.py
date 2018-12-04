@@ -11,29 +11,24 @@ from jupyterlab_thredds.crawler import TDSCrawler
 
 class ThreddsConfig(Configurable):
     """
-    Configuration of Threddds catalog crawler
+    Configuration of THREDDS catalog crawler
 
     """
-    workers = Integer(4, config=True, help='Number of workers to use for crawling')
+    maxtasks = Integer(10, config=True, help='Number of download tasks to run concurrently')
+    timeout = Integer(600, config=True, help='Maximum number of seconds to perform crawl')
 
 
 class ThreddsHandler(IPythonHandler):
     """
-    A thredds catalog crawler
+    A THREDDS catalog crawler
     """
-
-    def data_received(self, chunk):
-        pass
-
     async def get(self):
         catalog_url = self.get_argument('catalog_url')
         self.set_header('Content-Type', 'application/json')
-        # c = ThreddsConfig(config=self.config)
-        # c.workers
+        c = ThreddsConfig(config=self.config)
         loop = asyncio.get_event_loop()
-        crawler = TDSCrawler(catalog_url, loop)
-        timeout = 120
-        datasets = await asyncio.wait_for(crawler.run(), timeout)
+        crawler = TDSCrawler(catalog_url, loop, maxtasks=c.maxtasks)
+        datasets = await asyncio.wait_for(crawler.run(), c.timeout)
         self.finish(json.dumps(datasets))
 
 

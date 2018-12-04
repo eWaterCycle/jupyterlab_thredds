@@ -1,4 +1,6 @@
 thredds_crawler
 pytest
 pytest-cov
+pytest-asyncio
+vcrpy
 -e .

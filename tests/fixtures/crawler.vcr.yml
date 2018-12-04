@@ -1,0 +1,242 @@
+interactions:
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: http://localhost:8080/thredds/catalog.xml
+  response:
+    body: {string: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<catalog xmlns=\"http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0\"
+        xmlns:xlink=\"http://www.w3.org/1999/xlink\" name=\"THREDDS Server Default
+        Catalog : You must change this to fit your server!\" version=\"1.0.1\">\r\n
+        \ <service name=\"all\" serviceType=\"Compound\" base=\"\">\r\n    <service
+        name=\"odap\" serviceType=\"OPENDAP\" base=\"/thredds/dodsC/\" />\r\n    <service
+        name=\"dap4\" serviceType=\"DAP4\" base=\"/thredds/dap4/\" />\r\n    <service
+        name=\"http\" serviceType=\"HTTPServer\" base=\"/thredds/fileServer/\" />\r\n
+        \   <service name=\"wcs\" serviceType=\"WCS\" base=\"/thredds/wcs/\" />\r\n
+        \   <service name=\"wms\" serviceType=\"WMS\" base=\"/thredds/wms/\" />\r\n
+        \   <service name=\"ncss\" serviceType=\"NetcdfSubset\" base=\"/thredds/ncss/\"
+        />\r\n  </service>\r\n  <service name=\"dap\" serviceType=\"Compound\" base=\"\">\r\n
+        \   <service name=\"odap\" serviceType=\"OPENDAP\" base=\"/thredds/dodsC/\"
+        />\r\n    <service name=\"dap4\" serviceType=\"DAP4\" base=\"/thredds/dap4/\"
+        />\r\n  </service>\r\n  <catalogRef name=\"\" xlink:href=\"/thredds/catalog/ewc/catalog.xml\"
+        xlink:title=\"eWaterCycle 1 Data\">\r\n    <metadata inherited=\"true\">\r\n
+        \     <serviceName>all</serviceName>\r\n      <dataType>GRID</dataType>\r\n
+        \     <dataFormat>netCDF</dataFormat>\r\n    </metadata>\r\n    <property
+        name=\"DatasetScan\" value=\"true\" />\r\n  </catalogRef>\r\n</catalog>\r\n"}
+    headers:
+      ? !!python/object/new:multidict._istr.istr [Access-Control-Allow-Origin]
+      : '*'
+      ? !!python/object/new:multidict._istr.istr [Content-Language]
+      : en
+      ? !!python/object/new:multidict._istr.istr [Content-Type]
+      : application/xml;charset=UTF-8
+      ? !!python/object/new:multidict._istr.istr [Date]
+      : Tue, 04 Dec 2018 14:10:47 GMT
+      ? !!python/object/new:multidict._istr.istr [Transfer-Encoding]
+      : chunked
+    status: {code: 200, message: null}
+    url: !!python/object/new:yarl.URL
+      state: !!python/tuple
+      - !!python/object/new:urllib.parse.SplitResult [http, 'localhost:8080', /thredds/catalog.xml,
+        '', '']
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: http://localhost:8080/thredds/catalog/ewc/catalog.xml
+  response:
+    body: {string: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<catalog xmlns=\"http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0\"
+        xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.0.1\">\r\n  <service
+        name=\"all\" serviceType=\"Compound\" base=\"\">\r\n    <service name=\"odap\"
+        serviceType=\"OPENDAP\" base=\"/thredds/dodsC/\" />\r\n    <service name=\"dap4\"
+        serviceType=\"DAP4\" base=\"/thredds/dap4/\" />\r\n    <service name=\"http\"
+        serviceType=\"HTTPServer\" base=\"/thredds/fileServer/\" />\r\n    <service
+        name=\"wcs\" serviceType=\"WCS\" base=\"/thredds/wcs/\" />\r\n    <service
+        name=\"wms\" serviceType=\"WMS\" base=\"/thredds/wms/\" />\r\n    <service
+        name=\"ncss\" serviceType=\"NetcdfSubset\" base=\"/thredds/ncss/\" />\r\n
+        \ </service>\r\n  <dataset name=\"eWaterCycle 1 Data\" ID=\"ewc\">\r\n    <metadata
+        inherited=\"true\">\r\n      <serviceName>all</serviceName>\r\n      <dataType>GRID</dataType>\r\n
+        \     <dataFormat>netCDF</dataFormat>\r\n    </metadata>\r\n    <catalogRef
+        xlink:href=\"work01/catalog.xml\" xlink:title=\"work01\" ID=\"ewc/work01\"
+        name=\"\" />\r\n    <catalogRef xlink:href=\"forcingEnsemble/catalog.xml\"
+        xlink:title=\"forcingEnsemble\" ID=\"ewc/forcingEnsemble\" name=\"\" />\r\n
+        \   <dataset name=\"dischargeEnsStdOut.nc\" ID=\"ewc/dischargeEnsStdOut.nc\"
+        urlPath=\"ewc/dischargeEnsStdOut.nc\">\r\n      <dataSize units=\"Mbytes\">335.9</dataSize>\r\n
+        \     <date type=\"modified\">2018-05-01T11:58:19Z</date>\r\n    </dataset>\r\n
+        \   <dataset name=\"dischargeEns.nc\" ID=\"ewc/dischargeEns.nc\" urlPath=\"ewc/dischargeEns.nc\">\r\n
+        \     <dataSize units=\"Mbytes\">671.8</dataSize>\r\n      <date type=\"modified\">2018-05-01T11:58:17Z</date>\r\n
+        \   </dataset>\r\n  </dataset>\r\n</catalog>\r\n"}
+    headers:
+      ? !!python/object/new:multidict._istr.istr [Access-Control-Allow-Origin]
+      : '*'
+      ? !!python/object/new:multidict._istr.istr [Content-Language]
+      : en
+      ? !!python/object/new:multidict._istr.istr [Content-Type]
+      : application/xml;charset=UTF-8
+      ? !!python/object/new:multidict._istr.istr [Date]
+      : Tue, 04 Dec 2018 14:10:47 GMT
+      ? !!python/object/new:multidict._istr.istr [Transfer-Encoding]
+      : chunked
+    status: {code: 200, message: null}
+    url: !!python/object/new:yarl.URL
+      state: !!python/tuple
+      - !!python/object/new:urllib.parse.SplitResult [http, 'localhost:8080', /thredds/catalog/ewc/catalog.xml,
+        '', '']
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: http://localhost:8080/thredds/catalog/ewc/work01/catalog.xml
+  response:
+    body: {string: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<catalog xmlns=\"http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0\"
+        xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.0.1\">\r\n  <service
+        name=\"all\" serviceType=\"Compound\" base=\"\">\r\n    <service name=\"odap\"
+        serviceType=\"OPENDAP\" base=\"/thredds/dodsC/\" />\r\n    <service name=\"dap4\"
+        serviceType=\"DAP4\" base=\"/thredds/dap4/\" />\r\n    <service name=\"http\"
+        serviceType=\"HTTPServer\" base=\"/thredds/fileServer/\" />\r\n    <service
+        name=\"wcs\" serviceType=\"WCS\" base=\"/thredds/wcs/\" />\r\n    <service
+        name=\"wms\" serviceType=\"WMS\" base=\"/thredds/wms/\" />\r\n    <service
+        name=\"ncss\" serviceType=\"NetcdfSubset\" base=\"/thredds/ncss/\" />\r\n
+        \ </service>\r\n  <dataset name=\"work01\" ID=\"ewc/work01\">\r\n    <metadata
+        inherited=\"true\">\r\n      <serviceName>all</serviceName>\r\n      <dataType>GRID</dataType>\r\n
+        \     <dataFormat>netCDF</dataFormat>\r\n    </metadata>\r\n    <catalogRef
+        xlink:href=\"output/catalog.xml\" xlink:title=\"output\" ID=\"ewc/work01/output\"
+        name=\"\" />\r\n  </dataset>\r\n</catalog>\r\n"}
+    headers:
+      ? !!python/object/new:multidict._istr.istr [Access-Control-Allow-Origin]
+      : '*'
+      ? !!python/object/new:multidict._istr.istr [Content-Language]
+      : en
+      ? !!python/object/new:multidict._istr.istr [Content-Type]
+      : application/xml;charset=UTF-8
+      ? !!python/object/new:multidict._istr.istr [Date]
+      : Tue, 04 Dec 2018 14:10:47 GMT
+      ? !!python/object/new:multidict._istr.istr [Transfer-Encoding]
+      : chunked
+    status: {code: 200, message: null}
+    url: !!python/object/new:yarl.URL
+      state: !!python/tuple
+      - !!python/object/new:urllib.parse.SplitResult [http, 'localhost:8080', /thredds/catalog/ewc/work01/catalog.xml,
+        '', '']
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: http://localhost:8080/thredds/catalog/ewc/work01/output/catalog.xml
+  response:
+    body: {string: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<catalog xmlns=\"http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0\"
+        xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.0.1\">\r\n  <service
+        name=\"all\" serviceType=\"Compound\" base=\"\">\r\n    <service name=\"odap\"
+        serviceType=\"OPENDAP\" base=\"/thredds/dodsC/\" />\r\n    <service name=\"dap4\"
+        serviceType=\"DAP4\" base=\"/thredds/dap4/\" />\r\n    <service name=\"http\"
+        serviceType=\"HTTPServer\" base=\"/thredds/fileServer/\" />\r\n    <service
+        name=\"wcs\" serviceType=\"WCS\" base=\"/thredds/wcs/\" />\r\n    <service
+        name=\"wms\" serviceType=\"WMS\" base=\"/thredds/wms/\" />\r\n    <service
+        name=\"ncss\" serviceType=\"NetcdfSubset\" base=\"/thredds/ncss/\" />\r\n
+        \ </service>\r\n  <dataset name=\"output\" ID=\"ewc/work01/output\">\r\n    <metadata
+        inherited=\"true\">\r\n      <serviceName>all</serviceName>\r\n      <dataType>GRID</dataType>\r\n
+        \     <dataFormat>netCDF</dataFormat>\r\n    </metadata>\r\n    <catalogRef
+        xlink:href=\"netcdf/catalog.xml\" xlink:title=\"netcdf\" ID=\"ewc/work01/output/netcdf\"
+        name=\"\" />\r\n  </dataset>\r\n</catalog>\r\n"}
+    headers:
+      ? !!python/object/new:multidict._istr.istr [Access-Control-Allow-Origin]
+      : '*'
+      ? !!python/object/new:multidict._istr.istr [Content-Language]
+      : en
+      ? !!python/object/new:multidict._istr.istr [Content-Type]
+      : application/xml;charset=UTF-8
+      ? !!python/object/new:multidict._istr.istr [Date]
+      : Tue, 04 Dec 2018 14:10:47 GMT
+      ? !!python/object/new:multidict._istr.istr [Transfer-Encoding]
+      : chunked
+    status: {code: 200, message: null}
+    url: !!python/object/new:yarl.URL
+      state: !!python/tuple
+      - !!python/object/new:urllib.parse.SplitResult [http, 'localhost:8080', /thredds/catalog/ewc/work01/output/catalog.xml,
+        '', '']
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: http://localhost:8080/thredds/catalog/ewc/forcingEnsemble/catalog.xml
+  response:
+    body: {string: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<catalog xmlns=\"http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0\"
+        xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.0.1\">\r\n  <service
+        name=\"all\" serviceType=\"Compound\" base=\"\">\r\n    <service name=\"odap\"
+        serviceType=\"OPENDAP\" base=\"/thredds/dodsC/\" />\r\n    <service name=\"dap4\"
+        serviceType=\"DAP4\" base=\"/thredds/dap4/\" />\r\n    <service name=\"http\"
+        serviceType=\"HTTPServer\" base=\"/thredds/fileServer/\" />\r\n    <service
+        name=\"wcs\" serviceType=\"WCS\" base=\"/thredds/wcs/\" />\r\n    <service
+        name=\"wms\" serviceType=\"WMS\" base=\"/thredds/wms/\" />\r\n    <service
+        name=\"ncss\" serviceType=\"NetcdfSubset\" base=\"/thredds/ncss/\" />\r\n
+        \ </service>\r\n  <dataset name=\"forcingEnsemble\" ID=\"ewc/forcingEnsemble\">\r\n
+        \   <metadata inherited=\"true\">\r\n      <serviceName>all</serviceName>\r\n
+        \     <dataType>GRID</dataType>\r\n      <dataFormat>netCDF</dataFormat>\r\n
+        \   </metadata>\r\n    <dataset name=\"tempEnsMem01.nc\" ID=\"ewc/forcingEnsemble/tempEnsMem01.nc\"
+        urlPath=\"ewc/forcingEnsemble/tempEnsMem01.nc\">\r\n      <dataSize units=\"Mbytes\">17.63</dataSize>\r\n
+        \     <date type=\"modified\">2018-05-01T11:58:19Z</date>\r\n    </dataset>\r\n
+        \   <dataset name=\"precipEnsMem01.nc\" ID=\"ewc/forcingEnsemble/precipEnsMem01.nc\"
+        urlPath=\"ewc/forcingEnsemble/precipEnsMem01.nc\">\r\n      <dataSize units=\"Mbytes\">17.63</dataSize>\r\n
+        \     <date type=\"modified\">2018-05-01T11:58:19Z</date>\r\n    </dataset>\r\n
+        \ </dataset>\r\n</catalog>\r\n"}
+    headers:
+      ? !!python/object/new:multidict._istr.istr [Access-Control-Allow-Origin]
+      : '*'
+      ? !!python/object/new:multidict._istr.istr [Content-Language]
+      : en
+      ? !!python/object/new:multidict._istr.istr [Content-Type]
+      : application/xml;charset=UTF-8
+      ? !!python/object/new:multidict._istr.istr [Date]
+      : Tue, 04 Dec 2018 14:10:47 GMT
+      ? !!python/object/new:multidict._istr.istr [Transfer-Encoding]
+      : chunked
+    status: {code: 200, message: null}
+    url: !!python/object/new:yarl.URL
+      state: !!python/tuple
+      - !!python/object/new:urllib.parse.SplitResult [http, 'localhost:8080', /thredds/catalog/ewc/forcingEnsemble/catalog.xml,
+        '', '']
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: http://localhost:8080/thredds/catalog/ewc/work01/output/netcdf/catalog.xml
+  response:
+    body: {string: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<catalog xmlns=\"http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0\"
+        xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.0.1\">\r\n  <service
+        name=\"all\" serviceType=\"Compound\" base=\"\">\r\n    <service name=\"odap\"
+        serviceType=\"OPENDAP\" base=\"/thredds/dodsC/\" />\r\n    <service name=\"dap4\"
+        serviceType=\"DAP4\" base=\"/thredds/dap4/\" />\r\n    <service name=\"http\"
+        serviceType=\"HTTPServer\" base=\"/thredds/fileServer/\" />\r\n    <service
+        name=\"wcs\" serviceType=\"WCS\" base=\"/thredds/wcs/\" />\r\n    <service
+        name=\"wms\" serviceType=\"WMS\" base=\"/thredds/wms/\" />\r\n    <service
+        name=\"ncss\" serviceType=\"NetcdfSubset\" base=\"/thredds/ncss/\" />\r\n
+        \ </service>\r\n  <dataset name=\"netcdf\" ID=\"ewc/work01/output/netcdf\">\r\n
+        \   <metadata inherited=\"true\">\r\n      <serviceName>all</serviceName>\r\n
+        \     <dataType>GRID</dataType>\r\n      <dataFormat>netCDF</dataFormat>\r\n
+        \   </metadata>\r\n    <dataset name=\"totalEvaporation_dailyTot_output.nc\"
+        ID=\"ewc/work01/output/netcdf/totalEvaporation_dailyTot_output.nc\" urlPath=\"ewc/work01/output/netcdf/totalEvaporation_dailyTot_output.nc\">\r\n
+        \     <dataSize units=\"Mbytes\">335.9</dataSize>\r\n      <date type=\"modified\">2018-05-01T11:58:27Z</date>\r\n
+        \   </dataset>\r\n    <dataset name=\"satDegUppSurface_dailyTot_output.nc\"
+        ID=\"ewc/work01/output/netcdf/satDegUppSurface_dailyTot_output.nc\" urlPath=\"ewc/work01/output/netcdf/satDegUppSurface_dailyTot_output.nc\">\r\n
+        \     <dataSize units=\"Mbytes\">335.9</dataSize>\r\n      <date type=\"modified\">2018-05-01T11:58:24Z</date>\r\n
+        \   </dataset>\r\n    <dataset name=\"discharge_dailyTot_output.nc\" ID=\"ewc/work01/output/netcdf/discharge_dailyTot_output.nc\"
+        urlPath=\"ewc/work01/output/netcdf/discharge_dailyTot_output.nc\">\r\n      <dataSize
+        units=\"Mbytes\">335.9</dataSize>\r\n      <date type=\"modified\">2018-05-01T11:58:22Z</date>\r\n
+        \   </dataset>\r\n  </dataset>\r\n</catalog>\r\n"}
+    headers:
+      ? !!python/object/new:multidict._istr.istr [Access-Control-Allow-Origin]
+      : '*'
+      ? !!python/object/new:multidict._istr.istr [Content-Language]
+      : en
+      ? !!python/object/new:multidict._istr.istr [Content-Type]
+      : application/xml;charset=UTF-8
+      ? !!python/object/new:multidict._istr.istr [Date]
+      : Tue, 04 Dec 2018 14:10:47 GMT
+      ? !!python/object/new:multidict._istr.istr [Transfer-Encoding]
+      : chunked
+    status: {code: 200, message: null}
+    url: !!python/object/new:yarl.URL
+      state: !!python/tuple
+      - !!python/object/new:urllib.parse.SplitResult [http, 'localhost:8080', /thredds/catalog/ewc/work01/output/netcdf/catalog.xml,
+        '', '']
+version: 1
