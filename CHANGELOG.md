@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## [0.3.0] - 2018-12-05
+
 ### Added
 
 * timeout config key to limit the crawling time
