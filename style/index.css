@@ -26,5 +26,11 @@
 }
 
 .jp-ThreddsBrowser-fetcherror {
-  color: var(--jp-warn-color1);
+  color: var(--jp-error-color1);
+  padding: 4px 12px;
+}
+
+.jp-ThreddsBrowser-busy {
+  color: var(--jp-info-color0);
+  padding: 4px 12px;
 }

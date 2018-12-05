@@ -6,7 +6,7 @@ from traitlets.config import Configurable
 from notebook.utils import url_path_join
 from notebook.base.handlers import IPythonHandler
 
-from jupyterlab_thredds.crawler import TDSCrawler
+from jupyterlab_thredds.crawler import TDSCrawler, CrawlerError
 
 
 class ThreddsConfig(Configurable):
@@ -28,8 +28,19 @@ class ThreddsHandler(IPythonHandler):
         c = ThreddsConfig(config=self.config)
         loop = asyncio.get_event_loop()
         crawler = TDSCrawler(catalog_url, loop, maxtasks=c.maxtasks)
-        datasets = await asyncio.wait_for(crawler.run(), c.timeout)
-        self.finish(json.dumps(datasets))
+        try:
+            datasets = await asyncio.wait_for(crawler.run(), c.timeout)
+
+            self.finish(json.dumps(datasets))
+        except CrawlerError as e:
+            self.set_status(500)
+            self.set_header('Content-Type', 'application/problem+json')
+            # Use https://tools.ietf.org/html/draft-ietf-appsawg-http-problem-00 format
+            error = {
+                "title": str(e),
+                "url": e.url
+            }
+            self.finish(json.dumps(error))
 
 
 def _jupyter_server_extension_paths():

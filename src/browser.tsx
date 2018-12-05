@@ -48,25 +48,23 @@ export class ThreddsCatalogBrowser extends React.Component<IProps, IState> {
             datasets: [],
             error: '',
         });
-        ServerConnection.makeRequest(url, {}, this.serverSettings).then((response) => {
-            if (response.status !== 200) {
-                return response.json().then((data) => {
-                    throw new ServerConnection.ResponseError(response, data.message);
+        ServerConnection.makeRequest(url, {}, this.serverSettings).then(async (response) => {
+            const data = await response.json();
+            if (response.ok) {
+                this.setState({
+                    busy: false,
+                    datasets: data,
+                });
+            } else {
+                this.setState({
+                    busy: false,
+                    error: data.title,
                 });
             }
+        }).catch((reason) => {
             this.setState({
                 busy: false,
-            });
-            return response.json();
-        }, (reason) => {
-            this.setState({
-                busy: false,
-                error: 'Fetching datasets failed',
-            });
-        }).then((datasets) => {
-            this.setState({
-                busy: false,
-                datasets,
+                error: reason,
             });
         });
     }
@@ -94,7 +92,7 @@ export class ThreddsCatalogBrowser extends React.Component<IProps, IState> {
             <div>
                 <form className="p-Widget" onSubmit={this.handleSubmit}>
                     <div className="p-Widget">
-                        <label>Catalog URL</label>
+                        <label>THREDDS Catalog URL</label>
                         <div className="jp-TreddsBrowser-wrapper">
                             <input disabled={this.state.busy} className="jp-mod-styled jp-TreddsBrowser-input" type="text" value={this.state.catalog_url} onChange={this.onCatalogUrlChange} />
                         </div>
@@ -114,8 +112,8 @@ export class ThreddsCatalogBrowser extends React.Component<IProps, IState> {
                     </div>
                 </form>
                 <hr />
-                {this.state.busy && <span>Crawling catalog, please wait</span>}
-                {this.state.error && <span className="jp-ThreddsBrowser-fetcherror">{this.state.error}</span>}
+                {this.state.busy && <span className="jp-ThreddsBrowser-busy">Crawling catalog, please wait</span>}
+                {this.state.error && <span className="jp-ThreddsBrowser-fetcherror">Error: {this.state.error}</span>}
                 <div className="p-Widget jp-DirListing">
                     <ul className="jp-DirListing-content">
                         {datasets}

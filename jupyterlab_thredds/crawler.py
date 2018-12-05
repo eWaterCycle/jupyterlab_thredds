@@ -89,6 +89,24 @@ class AsyncTDSCatalog(TDSCatalog):
         self._process_datasets()
 
 
+class CrawlerError(Exception):
+    def __init__(self, message: str, url: str) -> None:
+        super().__init__(message)
+        self.url = url
+
+
+class CrawlerFetchError(CrawlerError):
+    def __init__(self, url: str) -> None:
+        message = 'Failed to fetch {0}'.format(url)
+        super().__init__(message, url)
+
+
+class CrawlerXmlError(CrawlerError):
+    def __init__(self, url: str) -> None:
+        message = '{0} not in XML format'.format(url)
+        super().__init__(message, url)
+
+
 class TDSCrawler:
     def __init__(self, rooturl: str, loop, maxtasks=10):
         """Asynchronous THREDDS catalog crawler
@@ -138,6 +156,7 @@ class TDSCrawler:
                 task.add_done_callback(lambda t: self.sem.release())
                 task.add_done_callback(self.tasks.remove)
                 self.tasks.add(task)
+                await task  # TODO waiting for task here will not make multiple tasks run concurrently, but if not exception are not captured
 
     async def process(self, url):
         logger.info('processing: %s', url)
@@ -146,23 +165,24 @@ class TDSCrawler:
         self.busy.add(url)
         try:
             resp = await self.session.get(url)
+            resp.raise_for_status()
         except Exception as exc:
-            logger.warning('... %s has error: %s', url, exc)
             self.done[url] = False
+            raise CrawlerFetchError(url) from exc
         else:
-            if (resp.status == 200 and
-                    ('application/xml' in resp.headers.get('Content-Type'))):
+            if 'application/xml' in resp.headers.get('Content-Type'):
                 data = (await resp.read()).decode('utf-8', 'replace')
                 cat = AsyncTDSCatalog(url, data)
                 urls = [c.href for c in cat.catalog_refs.values()]
                 await asyncio.Task(self.addurls(urls))
                 self.datasets += [ds2json(d) for d in cat.datasets.values()]
                 self.done[url] = True
+                resp.close()
             else:
-                logger.warning('... %s has error %s', url, resp)
                 self.done[url] = False
-            resp.close()
-
-        self.busy.remove(url)
-        logger.info('%s completed tasks, %s still pending, todo %s',
-                    len(self.done), len(self.tasks), len(self.todo))
+                resp.close()
+                raise CrawlerXmlError(url)
+        finally:
+            self.busy.remove(url)
+            logger.info('%s completed tasks, %s still pending, todo %s',
+                        len(self.done), len(self.tasks), len(self.todo))
