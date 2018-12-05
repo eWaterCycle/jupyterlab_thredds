@@ -16,3 +16,5 @@ yarn.lock
 MANIFEST
 dist
 yarn-error.log
+*.ipynb
+htmlcov

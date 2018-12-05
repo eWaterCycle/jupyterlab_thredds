@@ -6,6 +6,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### Added
+
+* timeout config key to limit the crawling time
+
+### Fixed
+
+* THREDDS server v5 compound serviceType not expanded (#22)
+* Crawling takes too long for large (>100 datasets) catalogs (#23)
+
+### Changed
+
+* Retrieve WMS layers in cell instead of while crawling (#23)
+* Switched from thredds_crawler to siphon Python package (#22 + #23)
+* Replaced workers config key with maxtasks
+
 ## [0.2.1] - 2018-11-29
 
 ### Fixed

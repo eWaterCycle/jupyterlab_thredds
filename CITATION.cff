@@ -8,7 +8,7 @@ authors:
 - given-names: Stefan
   family-names: Verhoeven
   affiliation: Netherlands eScience Center
-version: 0.2.1
+version: 0.3.0
 date-released: 2018-11-29
 repository-code: https://github.com/eWaterCycle/jupyterlab_thredds
 license: Apache-2.0
