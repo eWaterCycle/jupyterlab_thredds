@@ -20,4 +20,4 @@ async def test_crawl(event_loop, expected_crawl_result):
     catalog_url = 'http://localhost:8080/thredds/catalog.xml'
     crawler = TDSCrawler(catalog_url, event_loop, maxtasks=5)
     datasets = await asyncio.wait_for(crawler.run(), timeout=10)
-    assert sorted(datasets, key=lambda d: d['id']) == sorted(expected_crawl_result, key=lambda d: d['id'])
+    assert sorted(datasets, key=lambda d: d['id']) == expected_crawl_result

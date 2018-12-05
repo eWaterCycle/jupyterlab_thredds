@@ -31,7 +31,7 @@ class ThreddsHandler(IPythonHandler):
         try:
             datasets = await asyncio.wait_for(crawler.run(), c.timeout)
 
-            self.finish(json.dumps(datasets))
+            self.finish(json.dumps(sorted(datasets, key=lambda d: d['id'])))
         except CrawlerError as e:
             self.set_status(500)
             self.set_header('Content-Type', 'application/problem+json')
