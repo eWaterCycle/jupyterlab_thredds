@@ -11,8 +11,8 @@ import { IDataset } from './listing';
 
 export class Injector {
     readonly injectors: AbstractInjector[] = [
-        new IrisInjector(),
         new XarrayInjector(),
+        new IrisInjector(),
         new LeafletInjector(),
         new DownloadInjector(),
     ];
