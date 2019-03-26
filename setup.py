@@ -43,6 +43,7 @@ setup_dict = dict(
         'OWSLib',
         'traitlets',
         'aiohttp',
+        'esgf-pyclient',
     ],
     version=get_version('jupyterlab_thredds/version.py'),
     long_description=readme,

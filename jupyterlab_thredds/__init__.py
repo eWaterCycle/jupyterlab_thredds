@@ -6,8 +6,8 @@ from traitlets.config import Configurable
 from notebook.utils import url_path_join
 from notebook.base.handlers import IPythonHandler
 
-from jupyterlab_thredds.crawler import TDSCrawler, CrawlerError
-
+from .crawler import TDSCrawler, CrawlerError
+from .esgf import esgf_handler
 
 class ThreddsConfig(Configurable):
     """
@@ -49,6 +49,11 @@ def _jupyter_server_extension_paths():
     }]
 
 
+def thredds_handler(base_url='/'):
+    endpoint = url_path_join(base_url, '/thredds')
+    return (endpoint, ThreddsHandler)
+
+
 def load_jupyter_server_extension(nb_server_app):
     """
     Called when the extension is loaded.
@@ -57,6 +62,8 @@ def load_jupyter_server_extension(nb_server_app):
     """
     web_app = nb_server_app.web_app
     base_url = web_app.settings['base_url']
-    endpoint = url_path_join(base_url, '/thredds')
-    handlers = [(endpoint, ThreddsHandler)]
+    handlers = [
+        thredds_handler(base_url), 
+        esgf_handler(base_url),
+    ]
     web_app.add_handlers('.*$', handlers)
