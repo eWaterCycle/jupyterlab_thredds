@@ -57,7 +57,7 @@ jupyter lab build
 Watch mode
 ```bash
 # shell 1
-yarm watch
+yarn watch
 # shell 2
 jupyter lab --ip=0.0.0.0 --no-browser --watch
 ```
