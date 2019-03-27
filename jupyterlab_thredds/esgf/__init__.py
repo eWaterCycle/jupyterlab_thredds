@@ -1,7 +1,11 @@
+import json
+
 from notebook.utils import url_path_join
 from notebook.base.handlers import IPythonHandler
+from pyesgf.search import SearchConnection
 
-class ThreddsHandler(IPythonHandler):
+
+class EsfgHandler(IPythonHandler):
     """
     A ESGF catalog crawler
     """
@@ -14,8 +18,10 @@ class ThreddsHandler(IPythonHandler):
         results = ctx.search(query=query)        
         self.finish(results2json(results))
 
+
 def results2json(results):
     return json.dumps([result2json(result) for result in results])
+
 
 def result2json(result):
     # TODO dont just take first file, but return all files belonging to the ESGF entry and handle it in the web browser
@@ -30,6 +36,7 @@ def result2json(result):
         }
     }
 
+
 def esgf_handler(base_url='/'):
     endpoint = url_path_join(base_url, '/esgf')
-    return (endpoint, EsfgHandler)
+    return endpoint, EsfgHandler
