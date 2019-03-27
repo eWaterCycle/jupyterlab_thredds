@@ -40,11 +40,56 @@ export class ThreddsCatalogBrowser extends React.Component<IProps, IState> {
     }
 
     handleSubmit = (event: any) => {
-        this.fetchDatasets(this.state.catalog_url);
+        this.fetchDatasets();
         event.preventDefault();
     }
 
-    fetchDatasets(catalogUrl: string) {
+    fetchDatasets() {
+        switch (this.state.source) {
+            case 'THREDDS':
+                this.fetchThreddsDatasets();
+                break;
+            case 'ESGF':
+                this.fetchEsgfDatasets();
+                break;
+            default:
+                break;
+        }
+    }
+
+    fetchEsgfDatasets(): any {
+        const query = {
+            catalog_url: this.state.catalog_url,
+            query: this.state.query,
+        };
+        const url = URLExt.join(this.serverSettings.baseUrl, 'esgf') + URLExt.objectToQueryString(query);
+        this.setState({
+            busy: true,
+            datasets: [],
+            error: '',
+        });
+        ServerConnection.makeRequest(url, {}, this.serverSettings).then(async (response) => {
+            const data = await response.json();
+            if (response.ok) {
+                this.setState({
+                    busy: false,
+                    datasets: data,
+                });
+            } else {
+                this.setState({
+                    busy: false,
+                    error: data.title,
+                });
+            }
+        }).catch((reason) => {
+            this.setState({
+                busy: false,
+                error: reason,
+            });
+        });
+    }
+
+    fetchThreddsDatasets() {
         const query = { catalog_url: this.state.catalog_url };
         const url = URLExt.join(this.serverSettings.baseUrl, 'thredds') + URLExt.objectToQueryString(query);
         this.setState({
