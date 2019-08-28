@@ -1,4 +1,4 @@
-thredds_crawler
+jupyterlab
 pytest
 pytest-cov
 pytest-asyncio

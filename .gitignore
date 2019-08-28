@@ -18,3 +18,8 @@ dist
 yarn-error.log
 *.ipynb
 htmlcov
+.ipython/
+.local/
+.vscode/
+*.tsbuildinfo
+
