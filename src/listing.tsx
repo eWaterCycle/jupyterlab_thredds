@@ -34,7 +34,7 @@ export class ThreddsDataset extends React.Component<IThreddsDatasetProps, {}> {
             return (
                 <li key={d.id} title="Can not open file with selected Open as" >
                     <span className="jp-DirListing-item jp-DirListing-itemText jp-TreddsBrowser-item jp-TreddsBrowser-disabled">
-                        {d.id}
+                        {d.name}
                     </span>
                 </li>
             );
@@ -42,7 +42,7 @@ export class ThreddsDataset extends React.Component<IThreddsDatasetProps, {}> {
             return (
                 <li key={d.id} title={d.id}>
                     <span className="jp-DirListing-item jp-DirListing-itemText jp-TreddsBrowser-item" onClick={this.onClick}>
-                        {d.id}
+                        {d.name}
                     </span>
                 </li>
             );

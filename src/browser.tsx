@@ -138,12 +138,26 @@ export class ThreddsCatalogBrowser extends React.Component<IProps, IState> {
         if (this.state.catalog_url.indexOf('esg-search') !== -1) {
             this.setState({source: 'ESGF'});
         } else {
-            this.setState({source: 'ESGF', catalog_url: 'https://esgf-node.llnl.gov/esg-search'});
+            this.setState({source: 'ESGF', catalog_url: 'https://esgf-node.llnl.gov/esg-search/search'});
         }
     }
 
     onQueryChange = (event: any) => {
         this.setState({ query: event.target.value });
+    }
+
+    loadQueryExample1 = () => {
+        const query = 'id:CMIP6.DCPP.IPSL.IPSL-CM6A-LR.dcppC-amv-neg.r27i1p1f1.*';
+        const catalog_url = 'https://esgf-node.llnl.gov/esg-search/search';
+        const source = 'ESGF';
+        this.setState({source, query, catalog_url});
+    }
+
+    loadQueryExample2 = () => {
+        const query = 'project:CMIP6 AND variable:pr AND institution_id:IPSL AND frequency:day';
+        const catalog_url = 'https://esgf-node.llnl.gov/esg-search/search';
+        const source = 'ESGF';
+        this.setState({source, query, catalog_url});
     }
 
     render() {
@@ -170,13 +184,14 @@ export class ThreddsCatalogBrowser extends React.Component<IProps, IState> {
         } else if (this.state.source === 'ESGF') {
             form = (
                 <div className="p-Widget">
-                    <label>ESGF search service URL</label>
+                    <label>ESGF search service URL (ends with /esg-search/search)</label>
                     <div className="jp-TreddsBrowser-wrapper">
                         <input disabled={this.state.busy} className="jp-mod-styled jp-TreddsBrowser-input" type="text" value={this.state.catalog_url} onChange={this.onCatalogUrlChange} />
                     </div>
                     <label>Query</label>
                     <div className="jp-TreddsBrowser-wrapper">
                         <input disabled={this.state.busy} type="text" className="jp-mod-styled jp-TreddsBrowser-input" value={this.state.query} onChange={this.onQueryChange}/>
+                        (<a onClick={this.loadQueryExample1}>Example 1</a>, <a onClick={this.loadQueryExample2}>Example 2</a>)
                     </div>
                 </div>
             );
