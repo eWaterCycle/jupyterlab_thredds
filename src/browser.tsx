@@ -151,10 +151,10 @@ export class ThreddsCatalogBrowser extends React.Component<IProps, IState> {
             <ThreddsDataset key={d.id} dataset={d} onClick={this.onDatasetClick} disabled={!this.injector.supportedDataset(d, this.state.openas)} />
         ));
         const injectors = this.injector.injectors.map((c) => (
-            <option value={c.id}>{c.label}</option>
+            <option key={c.id} value={c.id}>{c.label}</option>
         ));
         const style = {
-            'background-color': '#545b62',
+            'backgroundColor': '#545b62',
             'color': '#fff',
         };
         let form: JSX.Element;

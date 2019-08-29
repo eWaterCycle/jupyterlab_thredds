@@ -1,4 +1,4 @@
-import { ILayoutRestorer, JupyterFrontEndPlugin, JupyterFrontEnd } from '@jupyterlab/application';
+import { ILayoutRestorer, JupyterFrontEnd, JupyterFrontEndPlugin } from '@jupyterlab/application';
 
 import { INotebookTracker } from '@jupyterlab/notebook';
 
@@ -24,7 +24,7 @@ function activate(app: JupyterFrontEnd, tracker: INotebookTracker, restorer: ILa
   const threddsBrowser = new ThreddsFileBrowser(tracker);
 
   restorer.add(threddsBrowser, NAMESPACE);
-  app.shell.add(threddsBrowser, "left", { rank: 700});
+  app.shell.add(threddsBrowser, 'left', { rank: 700});
 }
 
 /**
