@@ -5,6 +5,9 @@ import { IDataset } from '../listing';
 export abstract class AbstractInjector {
     abstract id: string;
     abstract label: string;
+    /**
+     * Service name in uppercase.
+     */
     abstract service: string;
 
     /**

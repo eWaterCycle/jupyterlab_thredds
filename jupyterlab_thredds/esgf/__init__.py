@@ -31,7 +31,7 @@ def result2json(result):
         'id': result.dataset_id,
         'services': {
             'OPENDAP': files.opendap_url,
-            'HTTPServer': files.download_url,
+            'HTTPSERVER': files.download_url,
             # 'GridFTP': files.gridftp_url,
         }
     }
