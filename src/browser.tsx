@@ -154,8 +154,8 @@ export class ThreddsCatalogBrowser extends React.Component<IProps, IState> {
             <option key={c.id} value={c.id}>{c.label}</option>
         ));
         const style = {
-            'backgroundColor': '#545b62',
-            'color': '#fff',
+            backgroundColor: '#545b62',
+            color: '#fff',
         };
         let form: JSX.Element;
         if (this.state.source === 'THREDDS') {
