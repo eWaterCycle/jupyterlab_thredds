@@ -148,16 +148,16 @@ export class ThreddsCatalogBrowser extends React.Component<IProps, IState> {
 
     loadQueryExample1 = () => {
         const query = 'id:CMIP6.DCPP.IPSL.IPSL-CM6A-LR.dcppC-amv-neg.r27i1p1f1.*';
-        const catalog_url = 'https://esgf-node.llnl.gov/esg-search/search';
+        const catalogUrl = 'https://esgf-node.llnl.gov/esg-search/search';
         const source = 'ESGF';
-        this.setState({source, query, catalog_url});
+        this.setState({source, query, catalog_url: catalogUrl});
     }
 
     loadQueryExample2 = () => {
         const query = 'project:CMIP6 AND variable:pr AND institution_id:IPSL AND frequency:day';
-        const catalog_url = 'https://esgf-node.llnl.gov/esg-search/search';
+        const catalogUrl = 'https://esgf-node.llnl.gov/esg-search/search';
         const source = 'ESGF';
-        this.setState({source, query, catalog_url});
+        this.setState({source, query, catalog_url: catalogUrl});
     }
 
     render() {
