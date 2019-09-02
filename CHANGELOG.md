@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## [0.4.0] - 2019-09-02
+
+### Added
+
+* ESGF free text search support ([#21](https://github.com/eWaterCycle/jupyterlab_thredds/issues/21))
+
+### Fixed
+
+* Compatible with Jupyter Lab 1.1.0 ([#28](https://github.com/eWaterCycle/jupyterlab_thredds/issues/28))
+
 ## [0.3.0] - 2018-12-05
 
 ### Added

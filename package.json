@@ -1,6 +1,6 @@
 {
   "name": "@ewatercycle/jupyterlab_thredds",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "JupyterLab viewer for Thredds catalog and ESGF",
   "keywords": [
     "jupyter",
