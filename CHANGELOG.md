@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## [0.4.1] - 2019-09-02
+
+### Fixed
+
+* Added missing fetchers sub-package
+
 ## [0.4.0] - 2019-09-02
 
 ### Added
