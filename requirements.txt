@@ -1,6 +1,7 @@
-thredds_crawler
+jupyterlab
 pytest
 pytest-cov
 pytest-asyncio
+pytest-tornado
 vcrpy
 -e .

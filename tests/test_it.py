@@ -1,4 +1,4 @@
-from jupyterlab_thredds import ThreddsConfig
+from jupyterlab_thredds.config import ThreddsConfig
 
 
 def test_ThreddsConfig():

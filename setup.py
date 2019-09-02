@@ -33,12 +33,14 @@ setup_dict = dict(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'License :: OSI Approved :: Apache Software License',
     ],
     install_requires=[
         'notebook',
         'siphon',
-        'xarray>=0.10,<0.10.8',  # pinned due to ipyleaflet py3.4 compatibility
+        'xarray',
+        'netCDF4',
         'ipyleaflet',
         'OWSLib',
         'traitlets',

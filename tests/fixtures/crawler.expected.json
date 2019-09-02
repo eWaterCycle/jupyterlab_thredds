@@ -1,7 +1,7 @@
 [
   {
     "id": "ewc/dischargeEns.nc",
-    "name": "dischargeEns.nc",
+    "name": "ewc/dischargeEns.nc",
     "services": {
       "DAP4": "http://localhost:8080/thredds/dap4/ewc/dischargeEns.nc",
       "HTTPSERVER": "http://localhost:8080/thredds/fileServer/ewc/dischargeEns.nc",
@@ -13,7 +13,7 @@
   },
   {
     "id": "ewc/dischargeEnsStdOut.nc",
-    "name": "dischargeEnsStdOut.nc",
+    "name": "ewc/dischargeEnsStdOut.nc",
     "services": {
       "DAP4": "http://localhost:8080/thredds/dap4/ewc/dischargeEnsStdOut.nc",
       "HTTPSERVER": "http://localhost:8080/thredds/fileServer/ewc/dischargeEnsStdOut.nc",
@@ -25,7 +25,7 @@
   },
   {
     "id": "ewc/forcingEnsemble/precipEnsMem01.nc",
-    "name": "precipEnsMem01.nc",
+    "name": "ewc/forcingEnsemble/precipEnsMem01.nc",
     "services": {
       "DAP4": "http://localhost:8080/thredds/dap4/ewc/forcingEnsemble/precipEnsMem01.nc",
       "HTTPSERVER": "http://localhost:8080/thredds/fileServer/ewc/forcingEnsemble/precipEnsMem01.nc",
@@ -37,7 +37,7 @@
   },
   {
     "id": "ewc/forcingEnsemble/tempEnsMem01.nc",
-    "name": "tempEnsMem01.nc",
+    "name": "ewc/forcingEnsemble/tempEnsMem01.nc",
     "services": {
       "DAP4": "http://localhost:8080/thredds/dap4/ewc/forcingEnsemble/tempEnsMem01.nc",
       "HTTPSERVER": "http://localhost:8080/thredds/fileServer/ewc/forcingEnsemble/tempEnsMem01.nc",
@@ -49,7 +49,7 @@
   },
   {
     "id": "ewc/work01/output/netcdf/discharge_dailyTot_output.nc",
-    "name": "discharge_dailyTot_output.nc",
+    "name": "ewc/work01/output/netcdf/discharge_dailyTot_output.nc",
     "services": {
       "DAP4": "http://localhost:8080/thredds/dap4/ewc/work01/output/netcdf/discharge_dailyTot_output.nc",
       "HTTPSERVER": "http://localhost:8080/thredds/fileServer/ewc/work01/output/netcdf/discharge_dailyTot_output.nc",
@@ -61,7 +61,7 @@
   },
   {
     "id": "ewc/work01/output/netcdf/satDegUppSurface_dailyTot_output.nc",
-    "name": "satDegUppSurface_dailyTot_output.nc",
+    "name": "ewc/work01/output/netcdf/satDegUppSurface_dailyTot_output.nc",
     "services": {
       "DAP4": "http://localhost:8080/thredds/dap4/ewc/work01/output/netcdf/satDegUppSurface_dailyTot_output.nc",
       "HTTPSERVER": "http://localhost:8080/thredds/fileServer/ewc/work01/output/netcdf/satDegUppSurface_dailyTot_output.nc",
@@ -73,7 +73,7 @@
   },
   {
     "id": "ewc/work01/output/netcdf/totalEvaporation_dailyTot_output.nc",
-    "name": "totalEvaporation_dailyTot_output.nc",
+    "name": "ewc/work01/output/netcdf/totalEvaporation_dailyTot_output.nc",
     "services": {
       "DAP4": "http://localhost:8080/thredds/dap4/ewc/work01/output/netcdf/totalEvaporation_dailyTot_output.nc",
       "HTTPSERVER": "http://localhost:8080/thredds/fileServer/ewc/work01/output/netcdf/totalEvaporation_dailyTot_output.nc",

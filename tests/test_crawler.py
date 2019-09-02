@@ -4,7 +4,7 @@ import json
 import pytest
 import vcr
 
-from jupyterlab_thredds import TDSCrawler
+from jupyterlab_thredds.crawler import TDSCrawler
 
 
 @pytest.fixture

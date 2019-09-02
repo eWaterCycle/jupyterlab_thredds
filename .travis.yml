@@ -1,5 +1,5 @@
 language: node_js
-node_js: 8
+node_js: 12
 sudo: false
 before_install:
     - if [ ! -e $HOME/conda/bin/activate ]; then
@@ -10,12 +10,12 @@ before_install:
 install:
     - conda env update -f environment.yml
     - pip install -r requirements.txt
-    - yarn install
+    - jlpm
 script:
     - pytest --cov=jupyterlab_thredds --cov-report xml --cov-report term --cov-branch
-    - yarn test
-    - yarn lint
-    - yarn build
+    - jlpm test
+    - jlpm lint
+    - jlpm build
 cache:
     directories:
       - $HOME/.cache/pip

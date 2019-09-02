@@ -16,7 +16,7 @@ def ds2json(dataset: Dataset) -> Dict:
     """
     services = {k.upper(): v for k, v in dataset.access_urls.items()}
     return {
-        'name': dataset.name,
+        'name': dataset.url_path,
         'id': dataset.url_path,
         'services': services
     }

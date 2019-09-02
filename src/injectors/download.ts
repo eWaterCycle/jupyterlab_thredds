@@ -7,7 +7,7 @@ import { urlOfService } from './util';
 export class DownloadInjector extends AbstractInjector {
     id = 'download';
     label = 'Download';
-    service = 'HTTPServer';
+    service = 'HTTPSERVER';
 
     inject(dataset: IDataset, notebook: Notebook): void {
         window.open(urlOfService(dataset, this.service));
