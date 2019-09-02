@@ -69,7 +69,8 @@ To make a new release perform the following steps:
 1. Update version in `package.json`, `CITATION.cff` and `jupyterlab_thredds/version.py`
 2. Record changes in `CHANGELOG.md`
 3. Make sure tests pass by running `jlpm test` and `pytest`
-4. Publish lab extension to npmjs with `jlpm build` and `jlpm publish --access=public`
-5. Publish server extension to pypi with `python setup.py sdist bdist_wheel` and `twine upload dist/*`
-6. Create GitHub release
-7. Update DOI in `README.md` and `CITATION.cff`
+5. Commit and push all changes
+6. Publish lab extension to npmjs with `jlpm build` and `jlpm publish --access=public`
+7. Publish server extension to pypi with `python setup.py sdist bdist_wheel` and `twine upload dist/*`
+8. Create GitHub release
+9. Update DOI in `README.md` and `CITATION.cff`
