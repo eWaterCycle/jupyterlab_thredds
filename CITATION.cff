@@ -3,7 +3,7 @@
 cff-version: 1.0.3
 message: If you use this software, please cite it as below.
 title: THREDDS browser for JupyterLab
-doi: 10.5281/zenodo.1972034
+doi: 10.5281/zenodo.3383760
 authors:
 - given-names: Stefan
   family-names: Verhoeven
