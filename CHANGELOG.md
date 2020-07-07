@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### Fixed
+
+* Compatible with Jupyter Lab 2.1.5 ([#32](https://github.com/eWaterCycle/jupyterlab_thredds/issues/32))
+
 ## [0.4.1] - 2019-09-02
 
 ### Fixed
