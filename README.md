@@ -73,4 +73,4 @@ To make a new release perform the following steps:
 6. Publish lab extension to npmjs with `jlpm build` and `jlpm publish --access=public`
 7. Publish server extension to pypi with `python setup.py sdist bdist_wheel` and `twine upload dist/*`
 8. Create GitHub release
-9. Update DOI in `README.md` and `CITATION.cff`
+9. Update DOI in `CITATION.cff`
