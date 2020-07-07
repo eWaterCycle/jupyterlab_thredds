@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 
 import { showErrorMessage } from '@jupyterlab/apputils';
 import { INotebookTracker } from '@jupyterlab/notebook';
-import { Widget } from '@phosphor/widgets';
+import { Widget } from '@lumino/widgets';
 import { Injector } from './injector';
 
 import { ThreddsCatalogBrowser } from './browser';
