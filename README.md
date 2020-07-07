@@ -66,7 +66,7 @@ jupyter lab --ip=0.0.0.0 --no-browser --watch
 ## Release
 
 To make a new release perform the following steps:
-1. Update version in `package.json`, `CITATION.cff` and `jupyterlab_thredds/version.py`
+1. Update version in `package.json` and `jupyterlab_thredds/version.py`
 2. Record changes in `CHANGELOG.md`
 3. Make sure tests pass by running `jlpm test` and `pytest`
 5. Commit and push all changes
