@@ -1,7 +1,7 @@
 import { ICellModel } from '@jupyterlab/cells';
 import { Notebook, NotebookActions } from '@jupyterlab/notebook';
 import { IObservableUndoableList } from '@jupyterlab/observables';
-import { find } from '@phosphor/algorithm';
+import { find } from '@lumino/algorithm';
 
 import { IDataset } from '../listing';
 import { AbstractInjector } from './abstract';
