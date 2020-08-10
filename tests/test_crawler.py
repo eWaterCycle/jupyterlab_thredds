@@ -4,7 +4,7 @@ import json
 import pytest
 import vcr
 
-from jupyterlab_thredds.crawler import TDSCrawler
+from jupyterlab_thredds.crawler import TDSCrawler, CrawlerFetchError
 
 
 @pytest.fixture
@@ -22,3 +22,12 @@ async def test_crawl(expected_crawl_result):
     datasets = await asyncio.wait_for(crawler.run(), timeout=10)
     sorted_datasets = sorted(datasets, key=lambda d: d['id'])
     assert sorted_datasets == expected_crawl_result
+
+@pytest.mark.asyncio
+@vcr.use_cassette('tests/fixtures/crawler2.vcr.yml')
+async def test_crawl_notfound():
+    catalog_url = 'http://localhost:8888/thredds/catalog.xml'
+    crawler = TDSCrawler(catalog_url, maxtasks=5)
+    with pytest.raises(CrawlerFetchError) as excinfo:
+        await asyncio.wait_for(crawler.run(), timeout=10)
+    assert catalog_url in str(excinfo.value)
