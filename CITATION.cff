@@ -5,9 +5,16 @@ message: If you use this software, please cite it as below.
 title: THREDDS browser for JupyterLab
 doi: 10.5281/zenodo.3934400
 authors:
-- given-names: Stefan
-  family-names: Verhoeven
-  affiliation: Netherlands eScience Center
+  -
+    affiliation: Netherlands eScience Center
+    family-names: Verhoeven
+    given-names: Stefan
+    orcid: "https://orcid.org/0000-0002-5821-2060"
+  -
+    affiliation: Netherlands eScience Center
+    family-names: Alidoost
+    given-names: Fakhereh
+    orcid: "https://orcid.org/0000-0001-8407-6472"
 repository-code: https://github.com/eWaterCycle/jupyterlab_thredds
 license: Apache-2.0
 keywords:
