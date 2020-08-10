@@ -46,6 +46,7 @@ jlpm build
 jupyter labextension link .
 jupyter serverextension enable --sys-prefix jupyterlab_thredds
 ```
+
 (`jlpm` command is JupyterLab's pinned version of [yarn](https://yarnpkg.com/) that is installed with JupyterLab.)
 
 To rebuild the package and the JupyterLab app:
@@ -56,6 +57,7 @@ jupyter lab build
 ```
 
 Watch mode
+
 ```bash
 # shell 1
 jlpm watch
@@ -66,11 +68,12 @@ jupyter lab --ip=0.0.0.0 --no-browser --watch
 ## Release
 
 To make a new release perform the following steps:
+
 1. Update version in `package.json` and `jupyterlab_thredds/version.py`
 2. Record changes in `CHANGELOG.md`
 3. Make sure tests pass by running `jlpm test` and `pytest`
-5. Commit and push all changes
-6. Publish lab extension to npmjs with `jlpm build` and `jlpm publish --access=public`
-7. Publish server extension to pypi with `python setup.py sdist bdist_wheel` and `twine upload dist/*`
-8. Create GitHub release
-9. Update DOI in `CITATION.cff`
+4. Commit and push all changes
+5. Publish lab extension to npmjs with `jlpm build` and `jlpm publish --access=public`
+6. Publish server extension to pypi with `python setup.py sdist bdist_wheel` and `twine upload dist/*`
+7. Create GitHub release
+8. Update DOI in `CITATION.cff`
