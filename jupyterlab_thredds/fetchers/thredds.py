@@ -16,8 +16,7 @@ class ThreddsHandler(IPythonHandler):
         catalog_url = self.get_argument('catalog_url')
         self.set_header('Content-Type', 'application/json')
         c = ThreddsConfig(config=self.config)
-        loop = asyncio.get_event_loop()
-        crawler = TDSCrawler(catalog_url, loop, maxtasks=c.maxtasks)
+        crawler = TDSCrawler(catalog_url, maxtasks=c.maxtasks)
         try:
             datasets = await asyncio.wait_for(crawler.run(), c.timeout)
 
