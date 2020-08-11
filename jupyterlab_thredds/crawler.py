@@ -107,24 +107,22 @@ class CrawlerXmlError(CrawlerError):
 
 
 class TDSCrawler:
-    def __init__(self, rooturl: str, loop, maxtasks=10):
+    def __init__(self, rooturl: str, maxtasks=10):
         """Asynchronous THREDDS catalog crawler
 
         Crawler based on https://github.com/aio-libs/aiohttp/blob/master/examples/legacy/crawl.py
 
         Args:
             rooturl: URL with THREDDS catalog xml file
-            loop: Event loop, eg. asyncio.get_event_loop()
             maxtasks: Number of download tasks to run concurrently
         """
         self.rooturl = rooturl
-        self.loop = loop
         self.todo = set()
         self.busy = set()
         self.done = {}
         self.tasks = set()
-        self.sem = asyncio.Semaphore(maxtasks, loop=loop)
-        self.session = aiohttp.ClientSession(loop=loop)
+        self.sem = asyncio.Semaphore(maxtasks)
+        self.session = aiohttp.ClientSession()
         self.datasets = []
 
     async def run(self):
@@ -134,11 +132,10 @@ class TDSCrawler:
             List of datasets
         """
         delay = 0.2
-        t = asyncio.ensure_future(self.addurls([self.rooturl]),
-                                  loop=self.loop)
-        await asyncio.sleep(delay, loop=self.loop)
+        t = asyncio.ensure_future(self.addurls([self.rooturl]))
+        await asyncio.sleep(delay)
         while self.busy:
-            await asyncio.sleep(delay, loop=self.loop)
+            await asyncio.sleep(delay)
 
         await t
         await self.session.close()
@@ -151,11 +148,11 @@ class TDSCrawler:
                     url not in self.todo):
                 self.todo.add(url)
                 await self.sem.acquire()
-                task = asyncio.ensure_future(self.process(url), loop=self.loop)
+                task = asyncio.ensure_future(self.process(url))
                 task.add_done_callback(lambda t: self.sem.release())
                 task.add_done_callback(self.tasks.remove)
                 self.tasks.add(task)
-                await task  # TODO waiting for task here will not make multiple tasks run concurrently, but if not exception are not captured
+                # await task  # TODO waiting for task here will not make multiple tasks run concurrently, but if not exception are not captured
 
     async def process(self, url):
         logger.info('processing: %s', url)

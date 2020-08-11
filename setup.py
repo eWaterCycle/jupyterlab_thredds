@@ -44,7 +44,7 @@ setup_dict = dict(
         'ipyleaflet',
         'OWSLib',
         'traitlets',
-        'aiohttp',
+        'aiohttp>=3.5,<4',
     ],
     version=get_version('jupyterlab_thredds/version.py'),
     long_description=readme,
